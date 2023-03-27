@@ -1,9 +1,9 @@
 <header>
   <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+    class="navbar navbar-expand-md navbar-toggleable-md navbar-dark border-bottom box-shadow mb-3" style="background-color: #1794d2;"
   >
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">BudgetApp</a>
+      <a class="navbar-brand text-light fs-2" [routerLink]="['/']">BudgetApp</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -16,7 +16,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div
-        class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
+        class="navbar-collapse collapse d-md-inline-flex"
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav flex-grow">
@@ -25,19 +25,36 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+            <a class="nav-link text-light fs-5" [routerLink]="['/']">Home</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/counter']"
-              >Counter</a
+          <li class="nav-item" *ngIf="isLoggedIn" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-light fs-5" [routerLink]="['/counter']"
+              >My Budget</a
             >
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-              >Fetch data</a
+          <li class="nav-item" *ngIf="isLoggedIn" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-light fs-5" [routerLink]="['/fetch-data']"
+              >Reports</a
+            >
+          </li>
+          <li class="nav-item" *ngIf="isLoggedIn" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-light fs-5" [routerLink]="['/fetch-data']"
+              >Goals</a
             >
           </li>
         </ul>
+        <ul class="nav navbar-nav ms-auto">
+          <li class="nav-item" (click)="login()" *ngIf="!isLoggedIn" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-light fs-5" [routerLink]="['/']"
+              >Login</a
+            >
+          </li>
+          <li class="nav-item" (click)="logout()" *ngIf="isLoggedIn" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-light fs-5" [routerLink]="['/']"
+              >Profile</a
+            >
+          </li>
+      </ul>
       </div>
     </div>
   </nav>
