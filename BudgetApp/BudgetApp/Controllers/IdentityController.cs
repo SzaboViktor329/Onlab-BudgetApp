@@ -55,8 +55,11 @@ namespace BudgetApp.Controllers
 
             var userToCreate = new User
             {
+                UserName = model.Username,
                 Email = model.Email,
-                UserName = model.Username
+                PhoneNumber= model.PhoneNumber,
+                FirstName = model.FirstName,
+                LastName = model.LastName
             };
 
             //Create User
