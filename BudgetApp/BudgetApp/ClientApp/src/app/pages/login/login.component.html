@@ -11,6 +11,6 @@
             <label for="floatingPassword">Password</label>
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="f.invalid">Login</button>
     </form>
 </div>
