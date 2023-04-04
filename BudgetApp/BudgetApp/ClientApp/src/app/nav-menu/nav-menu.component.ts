@@ -4,21 +4,17 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
-  styleUrls: ['./nav-menu.component.css'],
-  providers: [AuthService]
+  styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
   isExpanded = false;
-  isLoggedIn = false;
-  //authService : AuthService = 
-  constructor(public authService: AuthService){}
-
-  login(){
-    this.isLoggedIn=true;
+  public authService : AuthService;
+  constructor(authService: AuthService){
+    this.authService = authService;
   }
 
   logout(){
-    this.isLoggedIn=false;
+    this.authService.logout();
   }
 
   collapse() {

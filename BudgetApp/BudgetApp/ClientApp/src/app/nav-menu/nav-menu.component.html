@@ -27,40 +27,40 @@
           >
             <a class="nav-link text-light fs-5" [routerLink]="['/']">Home</a>
           </li>
-          <li class="nav-item" *ngIf="isLoggedIn" [routerLinkActive]="['link-active']">
+          <li class="nav-item" *ngIf="authService.isLoggedIn" [routerLinkActive]="['link-active']">
             <a class="nav-link text-light fs-5" [routerLink]="['/counter']"
               >My Budget</a
             >
           </li>
-          <li class="nav-item" *ngIf="isLoggedIn" [routerLinkActive]="['link-active']">
+          <li class="nav-item" *ngIf="authService.isLoggedIn" [routerLinkActive]="['link-active']">
             <a class="nav-link text-light fs-5" [routerLink]="['/fetch-data']"
               >Reports</a
             >
           </li>
-          <li class="nav-item" *ngIf="isLoggedIn" [routerLinkActive]="['link-active']">
+          <li class="nav-item" *ngIf="authService.isLoggedIn" [routerLinkActive]="['link-active']">
             <a class="nav-link text-light fs-5" [routerLink]="['/fetch-data']"
               >Goals</a
             >
           </li>
         </ul>
         <ul class="nav navbar-nav ms-auto">
-          <li class="nav-item" (click)="login()" *ngIf="!isLoggedIn" [routerLinkActive]="['link-active']">
+          <li class="nav-item" *ngIf="!authService.isLoggedIn" [routerLinkActive]="['link-active']">
             <a class="nav-link text-light fs-5" [routerLink]="['/register']"
               >Register</a
             >
           </li>
-          <li class="nav-item" (click)="login()" *ngIf="!isLoggedIn" [routerLinkActive]="['link-active']">
+          <li class="nav-item" *ngIf="!authService.isLoggedIn" [routerLinkActive]="['link-active']">
             <a class="nav-link text-light fs-5" [routerLink]="['/login']"
               >Login</a
             >
           </li>
-          <li class="nav-item" (click)="logout()" *ngIf="isLoggedIn" [routerLinkActive]="['link-active']">
+          <li class="nav-item" *ngIf="authService.isLoggedIn" [routerLinkActive]="['link-active']">
             <a class="nav-link text-light fs-5" [routerLink]="['/profile']"
               >Profile</a
             >
           </li>
-          <li class="nav-item" (click)="logout()" *ngIf="isLoggedIn" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-light fs-5" [routerLink]="['/']"
+          <li class="nav-item" *ngIf="authService.isLoggedIn" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-light fs-5" (click)="logout()" [routerLink]="['/']"
               >Logout</a
             >
           </li>

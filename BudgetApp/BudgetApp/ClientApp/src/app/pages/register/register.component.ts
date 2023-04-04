@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IdentityService, RegisterModel } from 'src/app/swagger-generated';
 
 @Component({
@@ -16,10 +17,8 @@ export class RegisterComponent {
         firstName: 'default',
         lastName: 'default'
     };
-    private identityService: IdentityService;
 
-    constructor(identityService: IdentityService) {
-        this.identityService = identityService;
+    constructor(private identityService: IdentityService, private router: Router) {
     }
 
     onSubmit(f: NgForm) {
@@ -31,6 +30,10 @@ export class RegisterComponent {
             firstName: f.value.firstName,
             lastName: f.value.lastName
         }
+        this.identityService.identityRegisterPost(this.registerFormApi).subscribe(response => {
+            console.log(response.result);
+            this.router.navigate(['/login']);
+        }, error => console.log("nem jo"));
         
         console.log(this.registerFormApi);
     }

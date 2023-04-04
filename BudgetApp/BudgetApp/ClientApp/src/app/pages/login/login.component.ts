@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/services/auth.service";
 import { IdentityService, LoginModel } from "src/app/swagger-generated";
 
 @Component({
@@ -12,10 +14,8 @@ import { IdentityService, LoginModel } from "src/app/swagger-generated";
       username: "default",
       password: "default"
     };
-    private identityService : IdentityService;
-    
-    constructor(identityService : IdentityService){
-      this.identityService=identityService;
+
+    constructor(private identityService : IdentityService, public authService : AuthService, private router: Router){
     }
 
     onSubmit(f: NgForm) {
@@ -24,12 +24,10 @@ import { IdentityService, LoginModel } from "src/app/swagger-generated";
         password: f.value.password
       }
       this.identityService.identityLoginPost(this.loginFormApi).subscribe(response =>{
-        sessionStorage.setItem("jwt", response.token);
+        this.authService.login(response.token);
         console.log(response.token);
+        this.router.navigate(['/profile']);
       }, error => console.log("nem jo"));
       //console.log(this.loginFormApi);
-    }
-    login(){
-      
     }
   }

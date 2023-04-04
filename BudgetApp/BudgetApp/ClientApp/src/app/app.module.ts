@@ -13,6 +13,7 @@ import { FetchDataComponent } from './pages/fetch-data/fetch-data.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { AuthService } from './services/auth.service';
 
 export function tokenGetter(){
   return sessionStorage.getItem("jwt");
@@ -47,7 +48,7 @@ export function tokenGetter(){
       }
     })
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
