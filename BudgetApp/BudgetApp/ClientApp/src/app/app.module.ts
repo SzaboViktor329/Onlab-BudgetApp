@@ -11,6 +11,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { CounterComponent } from './pages/counter/counter.component';
 import { FetchDataComponent } from './pages/fetch-data/fetch-data.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 export function tokenGetter(){
   return sessionStorage.getItem("jwt");
@@ -23,7 +25,9 @@ export function tokenGetter(){
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -34,6 +38,8 @@ export function tokenGetter(){
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'profile', component: ProfileComponent },
     ]),
     JwtModule.forRoot({
       config: {

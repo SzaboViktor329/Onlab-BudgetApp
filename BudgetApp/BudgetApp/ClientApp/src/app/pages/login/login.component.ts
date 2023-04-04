@@ -12,10 +12,6 @@ import { IdentityService, LoginModel } from "src/app/swagger-generated";
       username: "default",
       password: "default"
     };
-    private loginForm = new FormGroup({
-      username: new FormControl('',[Validators.required]),
-      password: new FormControl('',[Validators.required])
-    });
     private identityService : IdentityService;
     
     constructor(identityService : IdentityService){
