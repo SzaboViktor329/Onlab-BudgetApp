@@ -1,0 +1,55 @@
+<div class="text-center border border-2 border-dark mx-auto" style="min-width: 300px; width: fit-content;"
+    name="balanceComponent">
+    <p class="fs-4 fw-bold my-2">Account:</p>
+    <div class="container d-flex align-items-center justify-content-center">
+        <p class="border border-2 border-dark p-2 mb-2" name="accountField">1111-2222</p>
+    </div>
+    <p class="fs-4 fw-bold mb-2">Balance:</p>
+    <div class="container d-flex align-items-center justify-content-center">
+        <p class="border border-2 border-dark p-2 mb-3" name="balanceField">100 000 Ft</p>
+    </div>
+</div>
+
+<div class="container d-flex justify-content-center mt-3">
+    <button type="button" class="btn btn-primary">Add income/expense</button>   
+</div>
+
+<div class="my-3" name="transactionsPane">
+    <div name="upcomingPane">
+        <h1 class="fs-3 ms-3">Upcoming:</h1>
+        <div class="container d-flex justify-content-center overflow-auto" style="max-height: 200px;">
+            <table class="table table-fit m-3 w-75">
+                <tbody>
+                    <tr *ngFor="let _ of [].constructor(20)" class="border border-dark">
+                        <td class="border border-dark align-middle text-center" style="width: 23%;">Description</td>
+                        <td class="border border-dark align-middle text-center" style="width: 18%;">Category</td>
+                        <td class="border border-dark align-middle text-center" style="width: 18%;">Date</td>
+                        <td class="border border-dark align-middle text-center" style="width: 31%; word-wrap: break-word;">Amount</td>
+                        <td class="border border-dark align-middle text-center" style="width: 10%;">
+                            <button type="button" class="btn btn-primary">Remove</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div name="bookedPane">
+        <h1 class="fs-3 ms-3">Booked transactions:</h1>
+        <div class="container d-flex justify-content-center overflow-auto" style="max-height: 200px;">
+            <table class="table table-fit m-3 w-75">
+                <tbody>
+                    <tr *ngFor="let _ of [].constructor(20)" class="border border-dark">
+                        <td class="border border-dark align-middle text-center" style="width: 23%;">Description</td>
+                        <td class="border border-dark align-middle text-center" style="width: 18%;">Category</td>
+                        <td class="border border-dark align-middle text-center" style="width: 18%;">Date</td>
+                        <td class="border border-dark align-middle text-center" style="width: 31%; word-wrap: break-word;">Amount</td>
+                        <td class="border border-dark align-middle text-center" style="width: 10%;">
+                            <button type="button" class="btn btn-primary">Remove</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

@@ -14,6 +14,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AuthService } from './services/auth.service';
+import { MyBudgetComponent } from './pages/mybudget/mybudget.component';
 
 export function tokenGetter(){
   return sessionStorage.getItem("jwt");
@@ -28,7 +29,8 @@ export function tokenGetter(){
     FetchDataComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    MyBudgetComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -41,6 +43,7 @@ export function tokenGetter(){
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'profile', component: ProfileComponent },
+      { path: 'mybudget', component: MyBudgetComponent },
     ]),
     JwtModule.forRoot({
       config: {
