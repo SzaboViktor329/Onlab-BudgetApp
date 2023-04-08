@@ -1,0 +1,52 @@
+<div class="row w-100 m-0">
+    <div class="col-md-6">
+        <div class="border border-2 border-dark mx-auto m-3" name="annualReport" style="width: fit-content;">
+            <h1 class="fs-4 text-center m-3">Annual summary</h1>
+            <select class="form-select my-3 w-50 mx-auto" aria-label="Default select example">
+                <!--<option selected>Open this select menu</option>-->
+                <option value="account">2023</option>
+            </select>
+            <p class="m-3">Expenses: 100 000 Ft</p>
+            <p class="m-3">Income: 200 000 Ft</p>
+            <p class="m-3 fw-bold">Total: 100 000 Ft</p>
+        </div>
+        <div class="border border-2 border-dark mx-auto ms-3 me-3 mb-3" name="piechartReport" style="margin-top: 60px;">
+            <div class="d-flex">
+                <h1 class="fs-4 m-3 me-auto">By category</h1>
+                <select class="form-select my-3" aria-label="Default select example" style="width: fit-content;">
+                    <option value="account">2023</option>
+                </select>
+                <select class="form-select m-3" aria-label="Default select example" style="width: fit-content;">
+                    <option value="account">January</option>
+                </select>
+            </div>
+            <div class="btn-group btn-group-toggle ms-3" data-toggle="buttons">
+                <label class="btn btn-primary active">
+                    <input type="radio" name="options" id="option1" autocomplete="off" checked> Annualy
+                </label>
+                <label class="btn btn-primary">
+                    <input type="radio" name="options" id="option2" autocomplete="off"> Monthly
+                </label>
+            </div>
+            <div class="chart-container w-100 m-3 mx-auto">
+                <canvas  id="MyChart" >{{ chart }}</canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="border border-2 border-dark mx-auto m-3" name="annualReport" style="width: fit-content;">
+            <h1 class="fs-4 text-center m-3">Monthly summary</h1>
+            <select class="form-select my-3 w-50 mx-auto" aria-label="Default select example">
+                <!--<option selected>Open this select menu</option>-->
+                <option value="account">2023</option>
+            </select>
+            <div *ngFor="let _ of [].constructor(5)" class="border border-2 border-dark mx-auto m-3"
+                name="monthlyReport" style="width: fit-content;">
+                <h2 class="fs-5 m-3">January</h2>
+                <p class="m-3">Expenses: 100 000 Ft</p>
+                <p class="m-3">Income: 200 000 Ft</p>
+                <p class="m-3 fw-bold">Total: 100 000 Ft</p>
+            </div>
+        </div>
+    </div>
+</div>
