@@ -1,18 +1,18 @@
-<div class="col-md-6 offset-md-3 mt-4 was-validated">
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+<div class="col-md-6 offset-md-3 mt-4">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <h1 class="h3 mb-3 fw-normal text-center">Please login</h1>
         <div class="form-floating pb-3">
-            <input type="text" name="username" ngModel required class="form-control" id="floatingUsername"
+            <input type="text" name="username" required class="form-control" formControlName="username" [class.is-invalid]="loginForm.controls.username.touched && loginForm.controls.username.invalid" id="floatingUsername"
                 placeholder="name@example.com">
             <label for="floatingUsername">Username</label>
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
         <div class="form-floating pb-3">
-            <input type="password" name="password" ngModel required class="form-control" id="floatingPassword"
+            <input type="password" name="password" required class="form-control" formControlName="password" [class.is-invalid]="loginForm.controls.password.touched && loginForm.controls.password.invalid" id="floatingPassword"
                 placeholder="Password">
             <label for="floatingPassword">Password</label>
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="f.invalid">Login</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="loginForm.invalid">Login</button>
     </form>
 </div>

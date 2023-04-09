@@ -14,14 +14,18 @@ import { IdentityService, LoginModel } from "src/app/swagger-generated";
       username: "default",
       password: "default"
     };
+    public loginForm = new FormGroup({
+      username: new FormControl(),
+      password: new FormControl()
+    });
 
     constructor(private identityService : IdentityService, public authService : AuthService, private router: Router){
     }
 
-    onSubmit(f: NgForm) {
+    onSubmit() {
       this.loginFormApi={
-        username: f.value.username,
-        password: f.value.password
+        username: this.loginForm.controls.username.value,
+        password: this.loginForm.controls.password.value
       }
       this.identityService.identityLoginPost(this.loginFormApi).subscribe(response =>{
         this.authService.login(response.token);

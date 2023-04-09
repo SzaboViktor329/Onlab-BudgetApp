@@ -1,36 +1,42 @@
-<div class="col-md-6 offset-md-3 mt-4 mb-md-3 was-validated">
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+<div class="col-md-6 offset-md-3 mt-4 mb-md-3">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <h1 class="h3 mb-3 fw-normal text-center">Please register a new user account</h1>
         <div class="form-floating pb-3">
-            <input type="text" name="username" ngModel required class="form-control" id="floatingUsername" placeholder="name@example.com">
+            <input type="text" name="username" required class="form-control" 
+            formControlName="username" [class.is-invalid]="registerForm.controls.username.touched && registerForm.controls.username.invalid" id="floatingUsername" placeholder="name@example.com">
             <label for="floatingUsername">Username</label>
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
         <div class="form-floating pb-3">
-            <input type="email" name="email" ngModel required email="true" class="form-control" id="floatingEmail" placeholder="name@example.com">
+            <input type="email" name="email" required email="true" class="form-control" 
+            formControlName="email" [class.is-invalid]="registerForm.controls.email.touched && registerForm.controls.email.invalid" id="floatingEmail" placeholder="name@example.com">
             <label for="floatingEmail">Email address</label>
-            <div class="invalid-feedback">Please fill out this field.</div>
+            <div class="invalid-feedback">Incorrect email address.</div>
         </div>
         <div class="form-floating pb-3">
-            <input type="text" name="phoneNumber" ngModel required class="form-control" id="floatingPhoneNumber" placeholder="name@example.com">
+            <input type="text" name="phoneNumber" required class="form-control" 
+            formControlName="phoneNumber" [class.is-invalid]="registerForm.controls.phoneNumber.touched && registerForm.controls.phoneNumber.invalid" id="floatingPhoneNumber" placeholder="name@example.com">
             <label for="floatingPhoneNumber">Phone Number</label>
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
         <div class="form-floating pb-3">
-            <input type="text" name="firstName" ngModel required class="form-control" id="floatingFirstName" placeholder="name@example.com">
+            <input type="text" name="firstName" required class="form-control" 
+            formControlName="firstName" [class.is-invalid]="registerForm.controls.firstName.touched && registerForm.controls.firstName.invalid" id="floatingFirstName" placeholder="name@example.com">
             <label for="floatingFirstName">First Name</label>
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
         <div class="form-floating pb-3">
-            <input type="text" name="lastName" ngModel required class="form-control" id="floatingLastName" placeholder="name@example.com">
+            <input type="text" name="lastName" required class="form-control" 
+            formControlName="lastName" [class.is-invalid]="registerForm.controls.lastName.touched && registerForm.controls.lastName.invalid" id="floatingLastName" placeholder="name@example.com">
             <label for="floatingLastName">Last Name</label>
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
         <div class="form-floating pb-3">
-            <input type="password" name="password" ngModel required class="form-control" id="floatingPassword" placeholder="Password">
+            <input type="password" name="password" ngModel required class="form-control" 
+            formControlName="password" [class.is-invalid]="registerForm.controls.password.touched && registerForm.controls.password.invalid" id="floatingPassword" placeholder="Password">
             <label for="floatingPassword">Password</label>
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="f.invalid">Register</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="registerForm.invalid">Register</button>
     </form>
 </div>

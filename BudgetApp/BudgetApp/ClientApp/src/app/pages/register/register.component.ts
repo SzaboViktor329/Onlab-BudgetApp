@@ -17,18 +17,26 @@ export class RegisterComponent {
         firstName: 'default',
         lastName: 'default'
     };
+    public registerForm = new FormGroup({
+        username: new FormControl(),
+        password: new FormControl(),
+        email: new FormControl(),
+        phoneNumber: new FormControl(),
+        firstName: new FormControl(),
+        lastName: new FormControl()
+    });
 
     constructor(private identityService: IdentityService, private router: Router) {
     }
 
-    onSubmit(f: NgForm) {
+    onSubmit() {
         this.registerFormApi = {
-            username: f.value.username,
-            password: f.value.password,
-            email: f.value.email,
-            phoneNumber: f.value.phoneNumber,
-            firstName: f.value.firstName,
-            lastName: f.value.lastName
+            username: this.registerForm.controls.username.value,
+            password: this.registerForm.controls.password.value,
+            email: this.registerForm.controls.email.value,
+            phoneNumber: this.registerForm.controls.phoneNumber.value,
+            firstName: this.registerForm.controls.firstName.value,
+            lastName: this.registerForm.controls.lastName.value
         }
         this.identityService.identityRegisterPost(this.registerFormApi).subscribe(response => {
             console.log(response.result);
