@@ -29,3 +29,12 @@
   </div>
 </div>
 <p>{{authService.isLoggedIn}}</p>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAccountModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<app-addaccount-modal (callBackEvent)="parentFunction($event)"></app-addaccount-modal>
+<app-addtransaction-modal></app-addtransaction-modal>
+<app-addgoal-modal></app-addgoal-modal>

@@ -17,6 +17,9 @@ import { AuthService } from './services/auth.service';
 import { MyBudgetComponent } from './pages/mybudget/mybudget.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { GoalsComponent } from './pages/goals/goals.component';
+import { AddAccountModal } from './modals/addaccount.modal/addaccount.component';
+import { AddTransactionModal } from './modals/addtransaction.modal/addtransaction.component';
+import { AddGoalModal } from './modals/addgoal.modal/addgoal.component';
 
 export function tokenGetter(){
   return sessionStorage.getItem("jwt");
@@ -34,7 +37,10 @@ export function tokenGetter(){
     ProfileComponent,
     MyBudgetComponent,
     ReportsComponent,
-    GoalsComponent
+    GoalsComponent,
+    AddAccountModal,
+    AddTransactionModal,
+    AddGoalModal
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

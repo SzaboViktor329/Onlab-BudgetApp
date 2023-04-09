@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,4 +11,14 @@ export class HomeComponent {
   constructor(authService: AuthService){
     this.authService = authService;
   }
-}
+
+  parentFunction(input: string){
+    console.log(input);
+  }
+
+  onSubmit(f: NgForm) {
+    console.log(f.value)
+    }
+    //console.log(this.loginFormApi);
+  }
+
