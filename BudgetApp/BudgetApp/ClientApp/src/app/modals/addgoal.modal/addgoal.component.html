@@ -1,1 +1,31 @@
-<div>Addgoal modal</div>
+<div class="modal fade" id="addGoalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add new account</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+          <div class="form-floating pb-3 w-75 mx-auto">
+            <input type="text" name="accountName" required class="form-control" formControlName="accountName"
+              [class.is-invalid]="accountForm.controls.accountName.touched && accountForm.controls.accountName.invalid"
+              id="floatingaccountName">
+            <label for="floatingaccountName">Account name:</label>
+            <div class="invalid-feedback">Please fill out this field.</div>
+          </div>
+          <div class="form-floating pb-3 w-75 mx-auto">
+            <input type="text" name="accountNumber" required class="form-control" formControlName="accountNumber"
+              [class.is-invalid]="accountForm.controls.accountNumber.touched && accountForm.controls.accountNumber.invalid"
+              id="floatingaccountNumber">
+            <label for="floatingaccountNumber">Account number:</label>
+            <div class="invalid-feedback">Please fill out this field.</div>
+          </div>
+          <div class="w-50 mx-auto">
+            <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="accountForm.invalid">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

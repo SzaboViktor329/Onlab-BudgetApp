@@ -1,33 +1,31 @@
 <div class="modal fade" id="addAccountModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-            <h1 class="h3 mb-3 fw-normal text-center">Please login</h1>
-            <div class="form-floating pb-3">
-                <input type="text" name="username" ngModel required class="form-control" id="floatingUsername"
-                    placeholder="name@example.com">
-                <label for="floatingUsername">Username</label>
-                <div class="invalid-feedback">Please fill out this field.</div>
-            </div>
-            <div class="form-floating pb-3">
-                <input type="password" name="password" ngModel required class="form-control" id="floatingPassword"
-                    placeholder="Password">
-                <label for="floatingPassword">Password</label>
-                <div class="invalid-feedback">Please fill out this field.</div>
-            </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="f.invalid">Login</button>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add new account</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+          <div class="form-floating pb-3 w-75 mx-auto">
+            <input type="text" name="accountName" required class="form-control" formControlName="accountName"
+              [class.is-invalid]="accountForm.controls.accountName.touched && accountForm.controls.accountName.invalid"
+              id="floatingaccountName">
+            <label for="floatingaccountName">Account name</label>
+            <div class="invalid-feedback">Please fill out this field.</div>
+          </div>
+          <div class="form-floating pb-3 w-75 mx-auto">
+            <input type="text" name="accountNumber" required class="form-control" formControlName="accountNumber"
+              [class.is-invalid]="accountForm.controls.accountNumber.touched && accountForm.controls.accountNumber.invalid"
+              id="floatingaccountNumber">
+            <label for="floatingaccountNumber">Account number</label>
+            <div class="invalid-feedback">Please fill out this field.</div>
+          </div>
+          <div class="w-50 mx-auto">
+            <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="accountForm.invalid">Add</button>
+          </div>
         </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" (click)="callParent()">Save changes</button>
-        </div>
       </div>
     </div>
   </div>
-  
+</div>
