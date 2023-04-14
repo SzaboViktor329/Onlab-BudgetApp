@@ -43,7 +43,7 @@ namespace BudgetApp.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Account");
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("BudgetApp.Models.Goal", b =>
@@ -73,7 +73,7 @@ namespace BudgetApp.Migrations
 
                     b.HasIndex("AccountID");
 
-                    b.ToTable("Goal");
+                    b.ToTable("Goals");
                 });
 
             modelBuilder.Entity("BudgetApp.Models.Transaction", b =>
@@ -109,7 +109,7 @@ namespace BudgetApp.Migrations
 
                     b.HasIndex("AccountID");
 
-                    b.ToTable("Transaction");
+                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("BudgetApp.Models.User", b =>

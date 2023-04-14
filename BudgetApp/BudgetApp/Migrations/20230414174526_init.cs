@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BudgetApp.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -72,7 +72,7 @@ namespace BudgetApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Account",
+                name: "Accounts",
                 columns: table => new
                 {
                     AccountID = table.Column<int>(type: "int", nullable: false)
@@ -83,9 +83,9 @@ namespace BudgetApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Account", x => x.AccountID);
+                    table.PrimaryKey("PK_Accounts", x => x.AccountID);
                     table.ForeignKey(
-                        name: "FK_Account_AspNetUsers_UserId",
+                        name: "FK_Accounts_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
@@ -177,7 +177,7 @@ namespace BudgetApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Goal",
+                name: "Goals",
                 columns: table => new
                 {
                     GoalId = table.Column<int>(type: "int", nullable: false)
@@ -190,16 +190,16 @@ namespace BudgetApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Goal", x => x.GoalId);
+                    table.PrimaryKey("PK_Goals", x => x.GoalId);
                     table.ForeignKey(
-                        name: "FK_Goal_Account_AccountID",
+                        name: "FK_Goals_Accounts_AccountID",
                         column: x => x.AccountID,
-                        principalTable: "Account",
+                        principalTable: "Accounts",
                         principalColumn: "AccountID");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Transaction",
+                name: "Transactions",
                 columns: table => new
                 {
                     TransactionId = table.Column<int>(type: "int", nullable: false)
@@ -214,17 +214,17 @@ namespace BudgetApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Transaction", x => x.TransactionId);
+                    table.PrimaryKey("PK_Transactions", x => x.TransactionId);
                     table.ForeignKey(
-                        name: "FK_Transaction_Account_AccountID",
+                        name: "FK_Transactions_Accounts_AccountID",
                         column: x => x.AccountID,
-                        principalTable: "Account",
+                        principalTable: "Accounts",
                         principalColumn: "AccountID");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Account_UserId",
-                table: "Account",
+                name: "IX_Accounts_UserId",
+                table: "Accounts",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -267,13 +267,13 @@ namespace BudgetApp.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Goal_AccountID",
-                table: "Goal",
+                name: "IX_Goals_AccountID",
+                table: "Goals",
                 column: "AccountID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transaction_AccountID",
-                table: "Transaction",
+                name: "IX_Transactions_AccountID",
+                table: "Transactions",
                 column: "AccountID");
         }
 
@@ -295,16 +295,16 @@ namespace BudgetApp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Goal");
+                name: "Goals");
 
             migrationBuilder.DropTable(
-                name: "Transaction");
+                name: "Transactions");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Account");
+                name: "Accounts");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

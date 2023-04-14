@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetApp.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20230403154054_Init")]
-    partial class Init
+    [Migration("20230414174526_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,7 +45,7 @@ namespace BudgetApp.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Account");
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("BudgetApp.Models.Goal", b =>
@@ -75,7 +75,7 @@ namespace BudgetApp.Migrations
 
                     b.HasIndex("AccountID");
 
-                    b.ToTable("Goal");
+                    b.ToTable("Goals");
                 });
 
             modelBuilder.Entity("BudgetApp.Models.Transaction", b =>
@@ -111,7 +111,7 @@ namespace BudgetApp.Migrations
 
                     b.HasIndex("AccountID");
 
-                    b.ToTable("Transaction");
+                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("BudgetApp.Models.User", b =>

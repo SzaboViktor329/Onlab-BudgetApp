@@ -10,6 +10,8 @@ namespace BudgetApp.Data
         {
 
         }
-        //public DbSet<User> users { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Goal> Goals { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
     }
 }
