@@ -1,4 +1,6 @@
 using BudgetApp.Data;
+using BudgetApp.Data.Repository;
+using BudgetApp.Data.Repository.RepoServices;
 using BudgetApp.Models;
 using BudgetApp.Services.TokenGenerator;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,6 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddScoped<IJWTTokenGenerator, JWTTokenGenerator>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IGoalRepository, GoalRepository>();
+builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 

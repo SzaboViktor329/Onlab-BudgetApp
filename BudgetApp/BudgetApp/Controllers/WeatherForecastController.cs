@@ -1,4 +1,5 @@
 ﻿using BudgetApp.Data;
+using BudgetApp.Data.Repository.RepoServices;
 using BudgetApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,10 @@ namespace BudgetApp.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly ApplicationDBContext _applicationDBContext;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, ApplicationDBContext applicationDBContext)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            _applicationDBContext = applicationDBContext;
         }
 
         [HttpGet]
@@ -39,25 +38,9 @@ namespace BudgetApp.Controllers
 
         [HttpGet]
         [Route("users")]
-        public List<Account> accessDatabase()
+        public Account accessDatabase([FromServices] IAccountRepository repository)
         {
-            using(var context = _applicationDBContext)
-            {
-                
-                //User? user = context.Users.Find("b5105741-385e-448d-be57-e90bb1b50ec8");
-                /*
-                List<User> users = context.Users.ToList();
-                Account account = new Account();
-                account.AccountNumber = "222-333";
-                account.AccountName = "raif";
-                account.User= users.First();
-                context.Accounts.Add(account);
-                context.SaveChanges();
-                return null;
-                */
-                return context.Accounts.ToList();
-            }
-
+            return repository.GetById(1);
         }
     }
 }
