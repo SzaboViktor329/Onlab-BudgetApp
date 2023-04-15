@@ -35,12 +35,13 @@ namespace BudgetApp.Controllers
             })
             .ToArray();
         }
-
+        /*
         [HttpGet]
         [Route("users")]
         public Account accessDatabase([FromServices] IAccountRepository repository)
         {
             return repository.GetById(1);
         }
+        */
     }
 }

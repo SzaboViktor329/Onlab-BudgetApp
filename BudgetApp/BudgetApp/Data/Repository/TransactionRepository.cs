@@ -29,6 +29,12 @@ namespace BudgetApp.Data.Repository
             return context.Transactions.ToList();
         }
 
+        public List<Transaction> GetTransactionsOfAccount(int accountId, string transactionStatus)
+        {
+            return context.Transactions.Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals(transactionStatus))
+                .OrderByDescending(q => q.PostedDate).ThenByDescending(q => q.TransactionId).ToList();
+        }
+
         public Transaction GetById(int id)
         {
             return context.Transactions.Find(id);

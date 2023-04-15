@@ -24,6 +24,11 @@ namespace BudgetApp.Data.Repository
             context.SaveChanges();
         }
 
+        public List<Account> GetAccountsOfUser(string userId)
+        {
+            return context.Accounts.Where(q => q.User.Id == userId).ToList();
+        }
+
         public List<Account> GetAll()
         {
             return context.Accounts.ToList();
