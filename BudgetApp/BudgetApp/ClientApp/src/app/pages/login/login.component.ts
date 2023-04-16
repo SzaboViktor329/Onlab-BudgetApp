@@ -29,6 +29,7 @@ import { IdentityService, LoginModel } from "src/app/swagger-generated";
       }
       this.identityService.identityLoginPost(this.loginFormApi).subscribe(response =>{
         this.authService.login(response.token);
+        this.authService.setUserId();
         console.log(response.token);
         this.router.navigate(['/profile']);
       }, error => console.log("nem jo"));
