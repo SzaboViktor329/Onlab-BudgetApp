@@ -10,5 +10,6 @@ namespace BudgetApp.Data.Repository.RepoServices
         void Update(Transaction transaction);
         void Delete(Transaction transaction);
         List<Transaction> GetTransactionsOfAccount(int accountId, string transactionStatus);
+        double getBalance(int accountId);
     }
 }

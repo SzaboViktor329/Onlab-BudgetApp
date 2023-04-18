@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { Categories } from 'src/app/categories/categories';
+import { TransactionViewModel } from 'src/app/swagger-generated';
 
 declare var bootstrap: any;
 
@@ -10,8 +11,8 @@ declare var bootstrap: any;
   templateUrl: './addtransaction.component.html'
 })
 export class AddTransactionModal {
-  public childProp : string = "propfromchild";
-  @Output() callBackEvent = new EventEmitter<string>();
+  public transaction : TransactionViewModel = {};
+  @Output() addTransaction = new EventEmitter<TransactionViewModel>();
 
   categories = Object.values(Categories).filter(x => typeof x === "string")
   
@@ -23,12 +24,18 @@ export class AddTransactionModal {
     date: new FormControl(new Date().toISOString().split('T')[0]),
     amount: new FormControl()
   });
-
-  callParent(){
-    this.callBackEvent.emit(this.childProp);
-  }
+  
   onSubmit() {
-    
+    this.transaction={
+      transactionName: this.transactionForm.value.name,
+      category: this.transactionForm.value.category as string,
+      transactionStatus: this.transactionForm.value.monthly ? "upcoming" : "booked",
+      postedDate: new Date(this.transactionForm.value.date as string),
+      upcomingDate: new Date(this.transactionForm.value.date as string),
+      amount: this.transactionForm.value.amount
+    }
+    this.addTransaction.emit(this.transaction);
+    console.log(this.transaction);
     this.closeModal();
   }
 

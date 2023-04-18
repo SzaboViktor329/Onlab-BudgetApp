@@ -28,6 +28,10 @@ namespace BudgetApp.Controllers
             {
                 return BadRequest("Account not exist");
             }
+            if (!transactionViewModel.Category.Equals("Income"))
+            {
+                transactionViewModel.Amount*=-1;
+            }
             Transaction transaction = new Transaction() {
                 TransactionName= transactionViewModel.TransactionName,
                 Category= transactionViewModel.Category,
@@ -42,7 +46,7 @@ namespace BudgetApp.Controllers
         }
 
         [HttpGet]
-        public List<TransactionViewModel> GetBookedTransactions(int accountId, string transactionStatus)
+        public List<TransactionViewModel> GetTransactions(int accountId, string transactionStatus)
         {
             var transactions = transactionRepository.GetTransactionsOfAccount(accountId, transactionStatus);
             List<TransactionViewModel> transactionViews = new List<TransactionViewModel>();
@@ -50,6 +54,7 @@ namespace BudgetApp.Controllers
             {
                 transactionViews.Add(new TransactionViewModel()
                 {
+                    TransactionId = transaction.TransactionId,
                     TransactionName = transaction.TransactionName,
                     Category = transaction.Category,
                     TransactionStatus = transaction.TransactionStatus,
@@ -59,6 +64,24 @@ namespace BudgetApp.Controllers
                 });
             }
             return transactionViews;
+        }
+        [HttpDelete]
+        public IActionResult removeTransaction(int transactionId)
+        {
+            var transaction = transactionRepository.GetById(transactionId);
+            if(transaction == null)
+            {
+                return BadRequest("Transaction not exist");
+            }
+            transactionRepository.Delete(transaction);
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("balance")]
+        public double getBalance(int accountId)
+        {
+            return transactionRepository.getBalance(accountId);
         }
     }
 }

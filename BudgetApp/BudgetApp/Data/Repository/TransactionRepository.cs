@@ -45,5 +45,10 @@ namespace BudgetApp.Data.Repository
             context.Transactions.Update(transaction);
             context.SaveChanges();
         }
+
+        public double getBalance(int accountId)
+        {
+            return context.Transactions.Where(q => q.Account.AccountID == accountId).Sum(i => i.Amount);
+        }
     }
 }

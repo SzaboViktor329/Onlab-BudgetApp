@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { AccountViewModel } from "../swagger-generated";
 
 @Injectable({
     providedIn: "root"
@@ -8,6 +9,7 @@ export class AuthService{
     public isLoggedIn : boolean = true;
     private userId : string ="default";
     private selectedAccountId : number =-1;
+    private selectedAccount : AccountViewModel ={};
 
     helper = new JwtHelperService();
 
@@ -53,5 +55,11 @@ export class AuthService{
     setSelectedAccountId(selectedAccountId : number){
         this.selectedAccountId=selectedAccountId;
         sessionStorage.setItem("selectedAccount",selectedAccountId.toString());
+    }
+    getSelectedAccount(){
+        return this.selectedAccount;
+    }
+    setSelectedAccount(account : AccountViewModel){
+        this.selectedAccount=account;
     }
 }
