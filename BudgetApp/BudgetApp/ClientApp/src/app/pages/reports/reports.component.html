@@ -1,8 +1,8 @@
 <div class="row w-100 m-0">
     <div class="col-md-6">
-        <div class="border border-2 border-dark mx-auto m-3" name="annualReport" style="width: fit-content;">
+        <div class="mx-auto m-3 pt-2 pb-2 ps-3 pe-3" name="annualReport" style="background-color: rgb(23, 148, 210,0.7); width: fit-content; border-radius: 20%;">
             <h1 class="fs-4 text-center m-3">Annual summary</h1>
-            <select class="form-select my-3 w-50 mx-auto" aria-label="Default select example">
+            <select class="form-select my-3 w-50 mx-auto" aria-label="Default select example" style="background-color: rgba(214, 214, 214, 0.7);">
                 <!--<option selected>Open this select menu</option>-->
                 <option value="account">2023</option>
             </select>
@@ -10,13 +10,13 @@
             <p class="m-3">Income: 200 000 Ft</p>
             <p class="m-3 fw-bold">Total: 100 000 Ft</p>
         </div>
-        <div class="border border-2 border-dark mx-auto ms-3 me-3 mb-3" name="piechartReport" style="margin-top: 60px;">
+        <div class="mx-auto ms-3 me-3 mb-3 p-3" name="piechartReport" style="background-color: rgb(174, 174, 174,0.7); margin-top: 60px; border-radius: 10%;">
             <div class="d-flex">
                 <h1 class="fs-4 m-3 me-auto">By category</h1>
-                <select class="form-select my-3" aria-label="Default select example" style="width: fit-content;">
+                <select class="form-select my-3" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.819); width: fit-content;">
                     <option value="account">2023</option>
                 </select>
-                <select class="form-select m-3" aria-label="Default select example" style="width: fit-content;">
+                <select class="form-select m-3" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.819); width: fit-content;">
                     <option value="account">January</option>
                 </select>
             </div>
@@ -34,14 +34,14 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="border border-2 border-dark mx-auto m-3" name="annualReport" style="width: fit-content;">
+        <div class="mx-auto m-3 p-2 rounded" name="annualReport" style="background-color: rgb(174, 174, 174,0.7); width: fit-content;">
             <h1 class="fs-4 text-center m-3">Monthly summary</h1>
-            <select class="form-select my-3 w-50 mx-auto" aria-label="Default select example">
+            <select class="form-select my-3 w-50 mx-auto" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.819);">
                 <!--<option selected>Open this select menu</option>-->
                 <option value="account">2023</option>
             </select>
-            <div *ngFor="let _ of [].constructor(5)" class="border border-2 border-dark mx-auto m-3"
-                name="monthlyReport" style="width: fit-content;">
+            <div *ngFor="let _ of [].constructor(5)" class="mx-auto m-3 p-2"
+                name="monthlyReport" style="background-color: rgb(23, 148, 210,0.7); width: fit-content; border-radius: 20%;">
                 <h2 class="fs-5 m-3">January</h2>
                 <p class="m-3">Expenses: 100 000 Ft</p>
                 <p class="m-3">Income: 200 000 Ft</p>

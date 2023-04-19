@@ -1,17 +1,17 @@
 <div class="modal fade" id="addTransactionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add income/expense</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-header" style="background-color: #1794d2;">
+        <h5 class="modal-title text-light" id="exampleModalLabel">Add income/expense</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
           <div class="form-floating pb-3 w-75 mx-auto">
-            <input type="text" name="name" required class="form-control" formControlName="name"
+            <input type="text" name="name" required class="form-control" formControlName="name" placeholder="Name"
               [class.is-invalid]="transactionForm.controls.name.touched && transactionForm.controls.name.invalid"
               id="floatingName">
-            <label for="floatingName">Name</label>
+            <label for="floatingName">Transaction name</label>
             <div class="invalid-feedback">Please fill out this field.</div>
           </div>
           <div class="form-floating pb-3 w-75 mx-auto">
@@ -31,7 +31,7 @@
             <input type="date" id="date" formControlName="date">
           </div>
           <div class="form-floating pb-3 w-75 mx-auto">
-            <input type="number" name="amount" required class="form-control" formControlName="amount"
+            <input type="number" name="amount" required class="form-control" formControlName="amount" placeholder="Amount"
               [class.is-invalid]="transactionForm.controls.amount.touched && transactionForm.controls.amount.invalid"
               id="floatingAmount">
             <label for="floatingAmount">Amount</label>
