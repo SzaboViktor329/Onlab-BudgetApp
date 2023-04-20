@@ -2,30 +2,29 @@
     <div class="col-md-6">
         <div class="mx-auto m-3 pt-2 pb-2 ps-3 pe-3" name="annualReport" style="background-color: rgb(23, 148, 210,0.7); width: fit-content; border-radius: 20%;">
             <h1 class="fs-4 text-center m-3">Annual summary</h1>
-            <select class="form-select my-3 w-50 mx-auto" aria-label="Default select example" style="background-color: rgba(214, 214, 214, 0.7);">
-                <!--<option selected>Open this select menu</option>-->
-                <option value="account">2023</option>
+            <select #t (change)="annualReportSelectionChanged(t.value)" class="form-select my-3 w-50 mx-auto" aria-label="Default select example" style="background-color: rgba(214, 214, 214, 0.7);">
+                <option *ngFor="let availableYear of availableYears" [value]="availableYear">{{availableYear.getFullYear()}}</option>
             </select>
-            <p class="m-3">Expenses: 100 000 Ft</p>
-            <p class="m-3">Income: 200 000 Ft</p>
-            <p class="m-3 fw-bold">Total: 100 000 Ft</p>
+            <p class="m-3">Expenses: {{annualReport.expenses}} Ft</p>
+            <p class="m-3">Income: {{annualReport.income}} Ft</p>
+            <p class="m-3 fw-bold">Total: {{annualReport.total}} Ft</p>
         </div>
         <div class="mx-auto ms-3 me-3 mb-3 p-3" name="piechartReport" style="background-color: rgb(174, 174, 174,0.7); margin-top: 60px; border-radius: 10%;">
             <div class="d-flex">
                 <h1 class="fs-4 m-3 me-auto">By category</h1>
-                <select class="form-select my-3" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.819); width: fit-content;">
-                    <option value="account">2023</option>
+                <select *ngIf="annual" #v (change)="categoryReportSelectionChanged(v.value)" class="form-select m-3" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.819); width: fit-content;">
+                    <option *ngFor="let availableYear of availableYears" [value]="availableYear">{{availableYear.getFullYear()}}</option>
                 </select>
-                <select class="form-select m-3" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.819); width: fit-content;">
-                    <option value="account">January</option>
+                <select *ngIf="!annual" #v (change)="categoryReportSelectionChanged(v.value)" class="form-select m-3" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.819); width: fit-content;">
+                    <option *ngFor="let availableYearsMonth of availableYearsMonths" [value]="availableYearsMonth">{{availableYearsMonth.getFullYear()}} {{availableYearsMonth.toLocaleString('en-us', { month: 'long' })}}</option>
                 </select>
             </div>
             <div class="btn-group btn-group-toggle ms-3" data-toggle="buttons">
                 <label class="btn btn-primary active">
-                    <input type="radio" name="options" id="option1" autocomplete="off" checked> Annualy
+                    <input type="radio" (click)="setAnnual(true)" name="options" id="option1" autocomplete="off" checked> Annualy
                 </label>
                 <label class="btn btn-primary">
-                    <input type="radio" name="options" id="option2" autocomplete="off"> Monthly
+                    <input type="radio" (click)="setAnnual(false)" name="options" id="option2" autocomplete="off"> Monthly
                 </label>
             </div>
             <div class="chart-container w-100 m-3 mx-auto">
@@ -36,16 +35,15 @@
     <div class="col-md-6">
         <div class="mx-auto m-3 p-2 rounded" name="annualReport" style="background-color: rgb(174, 174, 174,0.7); width: fit-content;">
             <h1 class="fs-4 text-center m-3">Monthly summary</h1>
-            <select class="form-select my-3 w-50 mx-auto" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.819);">
-                <!--<option selected>Open this select menu</option>-->
-                <option value="account">2023</option>
+            <select #u (change)="monthlyReportSelectionChanged(u.value)" class="form-select my-3 w-50 mx-auto" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.819);">
+                <option *ngFor="let availableYear of availableYears" [value]="availableYear">{{availableYear.getFullYear()}}</option>
             </select>
-            <div *ngFor="let _ of [].constructor(5)" class="mx-auto m-3 p-2"
+            <div *ngFor="let monthlyReport of monthlyReports" class="mx-auto m-3 p-2"
                 name="monthlyReport" style="background-color: rgb(23, 148, 210,0.7); width: fit-content; border-radius: 20%;">
-                <h2 class="fs-5 m-3">January</h2>
-                <p class="m-3">Expenses: 100 000 Ft</p>
-                <p class="m-3">Income: 200 000 Ft</p>
-                <p class="m-3 fw-bold">Total: 100 000 Ft</p>
+                <h2 class="fs-5 m-3">{{monthlyReport.month}}</h2>
+                <p class="m-3">Expenses: {{monthlyReport.expenses}} Ft</p>
+                <p class="m-3">Income: {{monthlyReport.income}} Ft</p>
+                <p class="m-3 fw-bold">Total: {{monthlyReport.total}} Ft</p>
             </div>
         </div>
     </div>

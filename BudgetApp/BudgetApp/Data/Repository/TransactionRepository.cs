@@ -1,5 +1,6 @@
 ﻿using BudgetApp.Data.Repository.RepoServices;
 using BudgetApp.Models;
+using BudgetApp.ViewModels;
 
 namespace BudgetApp.Data.Repository
 {
@@ -49,6 +50,86 @@ namespace BudgetApp.Data.Repository
         public double getBalance(int accountId)
         {
             return context.Transactions.Where(q => q.Account.AccountID == accountId).Sum(i => i.Amount);
+        }
+
+        public List<DateTime> getAvailableYears(int accountId)
+        {
+            var dates = context.Transactions.Where(q => q.Account.AccountID == accountId).OrderByDescending(q => q.PostedDate).Select(i => i.PostedDate).ToList();
+            var result = dates.Select(d => new DateTime(d.Year, 1, 1)).Distinct().ToList();
+            return result;
+        }
+
+        public List<DateTime> getAvailableYearsMonths(int accountId)
+        {
+            var dates = context.Transactions.Where(q => q.Account.AccountID == accountId).OrderByDescending(q => q.PostedDate).Select(i => i.PostedDate).ToList();
+            var result = dates.Select(d => new DateTime(d.Year, d.Month, 1)).Distinct().ToList();
+            return result;
+        }
+
+        public double GetExpenses(int accountId, bool annual, DateTime date)
+        {
+            double result =0;
+            if (annual)
+            {
+                result = context.Transactions
+                    .Where(q => q.Account.AccountID == accountId
+                    && q.PostedDate.Year==date.Year && q.Amount<0).Sum(i => i.Amount);
+            }
+            else
+            {
+                result = context.Transactions
+                    .Where(q => q.Account.AccountID == accountId && q.PostedDate.Year == date.Year
+                    && q.PostedDate.Month==date.Month && q.Amount < 0).Sum(i => i.Amount);
+            }
+            return result;
+        }
+
+        public double GetIncome(int accountId, bool annual, DateTime date)
+        {
+            double result = 0;
+            if (annual)
+            {
+                result = context.Transactions
+                    .Where(q => q.Account.AccountID == accountId
+                    && q.PostedDate.Year == date.Year && q.Amount >= 0).Sum(i => i.Amount);
+            }
+            else
+            {
+                result = context.Transactions
+                    .Where(q => q.Account.AccountID == accountId && q.PostedDate.Year == date.Year
+                    && q.PostedDate.Month == date.Month && q.Amount >= 0).Sum(i => i.Amount);
+            }
+            return result;
+        }
+
+        public List<CategoryReportModel> GetReportByCategories(int accountId, bool annual, DateTime date)
+        {
+            List<CategoryReportModel> results;
+            if (annual)
+            {
+                results = context.Transactions
+                .Where(q => q.Account.AccountID == accountId
+                    && q.PostedDate.Year == date.Year)
+                .GroupBy(c => c.Category)
+                .Select(g => new CategoryReportModel()
+                {
+                    Category = g.Key,
+                    Amount = Math.Abs(g.Sum(s => s.Amount))
+                }).ToList();
+            }
+            else
+            {
+                results = context.Transactions
+                .Where(q => q.Account.AccountID == accountId && q.PostedDate.Year == date.Year
+                    && q.PostedDate.Month == date.Month)
+                .GroupBy(c => c.Category)
+                .Select(g => new CategoryReportModel()
+                {
+                    Category = g.Key,
+                    Amount = Math.Abs(g.Sum(s => s.Amount))
+                }).ToList();
+            }
+            return results;
         }
     }
 }

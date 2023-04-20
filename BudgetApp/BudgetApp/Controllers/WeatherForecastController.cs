@@ -17,16 +17,21 @@ namespace BudgetApp.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ITransactionRepository transactionRepository;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, ITransactionRepository transactionRepository)
         {
             _logger = logger;
+            this.transactionRepository = transactionRepository;
         }
 
         [HttpGet]
-        [Authorize]
         public IEnumerable<WeatherForecast> Get()
         {
+            var dates = transactionRepository.getAvailableYearsMonths(3);
+            var expenses = transactionRepository.GetExpenses(3, true, new DateTime(2023, 2, 1));
+            var piecharts = transactionRepository.GetReportByCategories(3, false, new DateTime(2023, 2, 1));
+            int m = 10;
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),

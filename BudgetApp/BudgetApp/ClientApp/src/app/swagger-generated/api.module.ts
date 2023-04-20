@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { AccountService } from './api/account.service';
 import { IdentityService } from './api/identity.service';
+import { ReportService } from './api/report.service';
 import { TransactionService } from './api/transaction.service';
 import { UserService } from './api/user.service';
 import { WeatherForecastService } from './api/weatherForecast.service';
@@ -16,6 +17,7 @@ import { WeatherForecastService } from './api/weatherForecast.service';
   providers: [
     AccountService,
     IdentityService,
+    ReportService,
     TransactionService,
     UserService,
     WeatherForecastService ]
