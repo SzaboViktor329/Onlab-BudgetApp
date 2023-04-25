@@ -14,14 +14,14 @@ export class AddTransactionModal {
   public transaction : TransactionViewModel = {};
   @Output() addTransaction = new EventEmitter<TransactionViewModel>();
 
-  categories = Object.values(Categories).filter(x => typeof x === "string")
-  
+  categories = Object.values(Categories).filter(x => typeof x === "string");
+  dateToday=new Date();
 
   public transactionForm = new FormGroup({
     name: new FormControl(),
     category: new FormControl(this.categories[0].toString()),
     monthly: new FormControl(false),
-    date: new FormControl(new Date().toISOString().split('T')[0]),
+    date: new FormControl(this.dateToday.toISOString().split('T')[0]),
     amount: new FormControl()
   });
   
@@ -42,6 +42,11 @@ export class AddTransactionModal {
   closeModal(){
     bootstrap.Modal.getInstance(document.getElementById('addTransactionModal')).hide();
     this.transactionForm.reset();
+    this.transactionForm.patchValue({
+      category: this.categories[0].toString(),
+      monthly: false,
+      date: this.dateToday.toISOString().split('T')[0]
+    });
   }
 
   

@@ -1,28 +1,37 @@
 <div class="modal fade" id="addGoalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add new account</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-header" style="background-color: #1794d2;">
+        <h5 class="modal-title text-light" id="exampleModalLabel">Add income/expense</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="goalForm" (ngSubmit)="onSubmit()">
           <div class="form-floating pb-3 w-75 mx-auto">
-            <input type="text" name="accountName" required class="form-control" formControlName="accountName"
-              [class.is-invalid]="accountForm.controls.accountName.touched && accountForm.controls.accountName.invalid"
-              id="floatingaccountName">
-            <label for="floatingaccountName">Account name:</label>
-            <div class="invalid-feedback">Please fill out this field.</div>
+            <select class="form-select" id="category" aria-label="Floating label select example" formControlName="category">
+              <option *ngFor="let category of categories">{{category}}</option>
+            </select>
+            <label for="category">Category</label>
+          </div>
+          <div class="form-check pb-3 mx-auto" style="width: fit-content;">
+            <input class="form-check-input" type="checkbox" value="" id="annual" formControlName="annual">
+            <label class="form-check-label" for="annual">
+              Annual
+            </label>
           </div>
           <div class="form-floating pb-3 w-75 mx-auto">
-            <input type="text" name="accountNumber" required class="form-control" formControlName="accountNumber"
-              [class.is-invalid]="accountForm.controls.accountNumber.touched && accountForm.controls.accountNumber.invalid"
-              id="floatingaccountNumber">
-            <label for="floatingaccountNumber">Account number:</label>
+            <input type="month" required class="form-control" id="floatingYearMonth"  formControlName="yearMonth">
+            <label for="floatingYearMonth">Year and month</label>
+          </div>
+          <div class="form-floating pb-3 w-75 mx-auto">
+            <input type="number" name="goal" required class="form-control" formControlName="goal" placeholder="Goal"
+              [class.is-invalid]="goalForm.controls.goal.touched && goalForm.controls.goal.invalid"
+              id="floatingGoal">
+            <label for="floatingGoal">Goal</label>
             <div class="invalid-feedback">Please fill out this field.</div>
           </div>
           <div class="w-50 mx-auto">
-            <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="accountForm.invalid">Add</button>
+            <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="goalForm.invalid">Add</button>
           </div>
         </form>
       </div>
