@@ -1,5 +1,6 @@
 export * from './accountViewModel';
 export * from './categoryReportModel';
+export * from './goalViewModel';
 export * from './loginModel';
 export * from './registerModel';
 export * from './reportModel';

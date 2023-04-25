@@ -28,7 +28,7 @@ namespace BudgetApp.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            var dates = transactionRepository.getAvailableYearsMonths(3);
+            var dates = transactionRepository.GetAvailableYearsMonths(3);
             var expenses = transactionRepository.GetExpenses(3, true, new DateTime(2023, 2, 1));
             var piecharts = transactionRepository.GetReportByCategories(3, false, new DateTime(2023, 2, 1));
             int m = 10;

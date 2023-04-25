@@ -1,5 +1,7 @@
 export * from './account.service';
 import { AccountService } from './account.service';
+export * from './goal.service';
+import { GoalService } from './goal.service';
 export * from './identity.service';
 import { IdentityService } from './identity.service';
 export * from './report.service';
@@ -10,4 +12,4 @@ export * from './user.service';
 import { UserService } from './user.service';
 export * from './weatherForecast.service';
 import { WeatherForecastService } from './weatherForecast.service';
-export const APIS = [AccountService, IdentityService, ReportService, TransactionService, UserService, WeatherForecastService];
+export const APIS = [AccountService, GoalService, IdentityService, ReportService, TransactionService, UserService, WeatherForecastService];

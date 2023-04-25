@@ -5,21 +5,22 @@
 <div class="my-3" name="goalsPane">
     <div class="mb-3" name="annualPane">
         <h1 class="fs-3 ms-3">Annual goals</h1>
-        <select class="form-select my-3 ms-5 fs-5" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.775); width: fit-content;">
-            <option value="account">2023</option>
+        <select #t (change)="annualGoalSelectionChanged(t.value)" class="form-select my-3 ms-5 fs-5" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.775); width: fit-content;">
+            <option *ngFor="let availableYear of availableYears" [value]="availableYear">{{availableYear.getFullYear()}}</option>
         </select>
         <div class="overflow-auto" style="max-height: 200px;">
-            <div *ngFor="let _ of [].constructor(5)" class="overflow-auto m-3 p-2 w-75 mx-auto" style="background-color: rgb(23, 148, 210,0.7); border-radius: 20px;">
+            <div *ngFor="let annualGoal of annualGoals" class="overflow-auto m-3 p-2 w-75 mx-auto" style="background-color: rgb(23, 148, 210,0.7); border-radius: 20px;">
                 <div class="d-flex">
                     <div class="d-flex align-items-center py-2 ps-3 pe-3 me-2" style="background-color:rgb(174, 174, 174,0.7);  border-radius: 10px 0px 0px 0px;">
-                        <p class="m-0 fw-bold">Category</p>
+                        <p class="m-0 fw-bold">{{annualGoal.category}}</p>
                     </div>
-                    <div class="py-2 ps-3 pe-3 text-center fw-bold" style="background-color:rgb(174, 174, 174,0.7); border-radius: 0px 0px 10px 0px;">Goal: <br>100 000 Ft</div>
+                    <div class="py-2 ps-3 pe-3 text-center fw-bold" style="background-color:rgb(174, 174, 174,0.7); border-radius: 0px 0px 10px 0px;">Goal: <br>{{annualGoal.targetAmount}} Ft</div>
                 </div>
                 <div class="p-3">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" [style.background-color]="isIncome ? 'green' : 'red'"
-                        [style.width]="percentage + '%'">25 000 Ft</div>
+                    <div class="progress position-relative">
+                        <div *ngIf="annualGoal.actualAmount && annualGoal.targetAmount" class="progress-bar" role="progressbar" [style.background-color]="annualGoal.category === 'Income' ? 'green' : 'red'"
+                        [style.width]="100*annualGoal.actualAmount/annualGoal.targetAmount + '%'"></div>
+                        <small class="justify-content-center d-flex position-absolute w-100 fw-bold">{{annualGoal.actualAmount}} Ft</small>
                     </div>
                 </div>
             </div>
@@ -28,29 +29,27 @@
     <div name="monthlyPane">
         <h1 class="fs-3 ms-3">Monthly goals</h1>
         <div class="d-flex">
-            <select class="form-select my-3 ms-5 fs-5" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.67); width: fit-content;">
-                <option value="account">2023</option>
-            </select>
-            <select class="form-select my-3 ms-2 fs-5" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.67); width: fit-content;">
-                <option value="account">January</option>
+            <select #v (change)="monthlyGoalSelectionChanged(v.value)" class="form-select my-3 ms-5 fs-5" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.67); width: fit-content;">
+                <option *ngFor="let availableYearsMonth of availableYearsMonths" [value]="availableYearsMonth">{{availableYearsMonth.getFullYear()}} {{availableYearsMonth.toLocaleString('en-us', { month: 'long' })}}</option>
             </select>
         </div>
         <div class="overflow-auto" style="max-height: 200px;">
-            <div *ngFor="let _ of [].constructor(5)" class="overflow-auto m-3 p-2 w-75 mx-auto" style="background-color: rgb(23, 148, 210,0.7); border-radius: 20px;">
+            <div *ngFor="let monthlyGoal of monthlyGoals" class="overflow-auto m-3 p-2 w-75 mx-auto" style="background-color: rgb(23, 148, 210,0.7); border-radius: 20px;">
                 <div class="d-flex">
                     <div class="d-flex align-items-center py-2 ps-3 pe-3 me-2" style="background-color:rgb(174, 174, 174,0.7);  border-radius: 10px 0px 0px 0px;">
-                        <p class="m-0 fw-bold">Category</p>
+                        <p class="m-0 fw-bold">{{monthlyGoal.category}}</p>
                     </div>
-                    <div class="py-2 ps-3 pe-3 text-center fw-bold" style="background-color:rgb(174, 174, 174,0.7); border-radius: 0px 0px 10px 0px;">Goal: <br>100 000 Ft</div>
+                    <div class="py-2 ps-3 pe-3 text-center fw-bold" style="background-color:rgb(174, 174, 174,0.7); border-radius: 0px 0px 10px 0px;">Goal: <br>{{monthlyGoal.targetAmount}} Ft</div>
                 </div>
                 <div class="p-3">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" [style.background-color]="isIncome ? 'green' : 'red'"
-                        [style.width]="percentage + '%'">25 000 Ft</div>
+                    <div class="progress position-relative">
+                        <div *ngIf="monthlyGoal.actualAmount && monthlyGoal.targetAmount" class="progress-bar" role="progressbar" [style.background-color]="monthlyGoal.category === 'Income' ? 'green' : 'red'"
+                        [style.width]="100*monthlyGoal.actualAmount/monthlyGoal.targetAmount + '%'"></div>
+                        <small class="justify-content-center d-flex position-absolute w-100 fw-bold">{{monthlyGoal.actualAmount}} Ft</small>
                     </div>
                 </div>
             </div>
         </div> 
     </div>
 </div>
-<app-addgoal-modal></app-addgoal-modal>
+<app-addgoal-modal (addGoal)="addGoal($event)"></app-addgoal-modal>

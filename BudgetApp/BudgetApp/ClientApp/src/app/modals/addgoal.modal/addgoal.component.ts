@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, NgForm } from '@angular/forms';
 import { Categories } from 'src/app/categories/categories';
+import { GoalViewModel } from 'src/app/swagger-generated';
 
 declare var bootstrap: any;
 
@@ -9,8 +10,8 @@ declare var bootstrap: any;
   templateUrl: './addgoal.component.html'
 })
 export class AddGoalModal {
-  public childProp : string = "propfromchild";
-  @Output() callBackEvent = new EventEmitter<string>();
+  public goal : GoalViewModel = {};
+  @Output() addGoal = new EventEmitter<GoalViewModel>();
 
   categories = Object.values(Categories).filter(x => typeof x === "string");
   dateToday=new Date();
@@ -21,12 +22,16 @@ export class AddGoalModal {
     yearMonth: new FormControl(this.dateToday.toISOString().split('T')[0].slice(0,-3)),
     goal: new FormControl()
   });
-
-  callParent(){
-    this.callBackEvent.emit(this.childProp);
-  }
+  
   onSubmit() { 
-    console.log(this.goalForm);
+    this.goal={
+      annual: this.goalForm.value.annual as boolean,
+      category: this.goalForm.value.category as string,
+      goalDate: new Date(this.goalForm.value.yearMonth as string),
+      targetAmount: this.goalForm.value.goal
+    }
+    this.addGoal.emit(this.goal);
+    console.log(this.goal);
     this.closeModal();
   }
 

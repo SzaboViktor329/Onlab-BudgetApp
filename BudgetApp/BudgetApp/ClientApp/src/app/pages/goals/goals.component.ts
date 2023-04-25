@@ -1,10 +1,68 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { GoalService, GoalViewModel } from 'src/app/swagger-generated';
 
 @Component({
   selector: 'app-goals',
-  templateUrl: './goals.component.html'
+  templateUrl: './goals.component.html',
+  providers: [GoalService]
 })
 export class GoalsComponent {
-    public isIncome: boolean = true;
-    public percentage: number = 30;
+  public accountId = this.authService.getSelectedAccountId();
+  public annualGoals : GoalViewModel[] = [];
+  public monthlyGoals : GoalViewModel[] = [];
+  public availableYearsMonths : Date[] = [];
+  public availableYears : Date[] = [];
+  public isIncome: boolean = true;
+  public percentage: number = 30;
+
+  constructor(private goalService: GoalService, public authService: AuthService) {
+    this.getAvailableYears();
+    this.getAvailableYearsMonths();
+  }
+
+  getAvailableYears(){
+    this.goalService.apiGoalAvailableyearsGet(this.accountId).subscribe(response=>{
+      for(var dateString of response){
+        this.availableYears.push(new Date(dateString));
+      }
+      this.getAnnualGoals(this.availableYears[0]);
+    });
+  }
+  getAvailableYearsMonths(){
+    this.goalService.apiGoalAvailabledatesGet(this.accountId).subscribe(response=>{
+      for(var dateString of response){
+        this.availableYearsMonths.push(new Date(dateString));
+      }
+      this.getMonthlyGoals(this.availableYearsMonths[0]);
+    });
+  }
+
+  annualGoalSelectionChanged(dateString : string){
+    this.getAnnualGoals(new Date(dateString));
+  }
+
+  monthlyGoalSelectionChanged(dateString : string){
+    this.getMonthlyGoals(new Date(dateString));
+  }
+
+  getAnnualGoals(date : Date){
+    this.goalService.apiGoalGet(this.accountId,true,date).subscribe(response=>{
+      this.annualGoals=response;
+    })
+  }
+
+  getMonthlyGoals(date : Date){
+    this.goalService.apiGoalGet(this.accountId,false,date).subscribe(response=>{
+      this.monthlyGoals=response;
+    })
+  }
+
+  addGoal(goal: GoalViewModel) {
+    this.goalService.apiGoalPost(goal, this.accountId).subscribe(response =>{
+      this.getAvailableYears();
+      this.getAvailableYearsMonths();
+      console.log(response);
+    });
+  }
 }

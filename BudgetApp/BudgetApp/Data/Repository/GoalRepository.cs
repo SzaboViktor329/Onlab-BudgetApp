@@ -29,9 +29,34 @@ namespace BudgetApp.Data.Repository
             return context.Goals.ToList();
         }
 
+        public List<DateTime> GetAvailableYears(int accountId)
+        {
+            var dates = context.Goals.Where(q=>q.Account.AccountID == accountId && q.Annual==true).OrderByDescending(q=>q.GoalDate).Select(q=>q.GoalDate).ToList();
+            var result = dates.Select(d => new DateTime(d.Year, 1, 1)).Distinct().ToList();
+            return result;
+        }
+
+        public List<DateTime> GetAvailableYearsMonths(int accountId)
+        {
+            var dates = context.Goals.Where(q => q.Account.AccountID == accountId && q.Annual==false).OrderByDescending(q => q.GoalDate).Select(q => q.GoalDate).ToList();
+            var result = dates.Select(d => new DateTime(d.Year, d.Month, 1)).Distinct().ToList();
+            return result;
+        }
+
         public Goal GetById(int id)
         {
             return context.Goals.Find(id);
+        }
+
+        public List<Goal> GetGoalsOfAccount(int accountId, bool annual, DateTime date)
+        {
+            if (annual)
+            {
+                return context.Goals.Where(q => q.Account.AccountID == accountId && q.Annual == annual 
+                && q.GoalDate.Year == date.Year).ToList();
+            }
+            return context.Goals.Where(q => q.Account.AccountID == accountId && q.Annual == annual
+            && q.GoalDate.Year == date.Year && q.GoalDate.Month == date.Month).ToList();
         }
 
         public void Update(Goal goal)

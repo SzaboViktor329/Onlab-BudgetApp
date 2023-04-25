@@ -52,14 +52,14 @@ namespace BudgetApp.Data.Repository
             return context.Transactions.Where(q => q.Account.AccountID == accountId).Sum(i => i.Amount);
         }
 
-        public List<DateTime> getAvailableYears(int accountId)
+        public List<DateTime> GetAvailableYears(int accountId)
         {
             var dates = context.Transactions.Where(q => q.Account.AccountID == accountId).OrderByDescending(q => q.PostedDate).Select(i => i.PostedDate).ToList();
             var result = dates.Select(d => new DateTime(d.Year, 1, 1)).Distinct().ToList();
             return result;
         }
 
-        public List<DateTime> getAvailableYearsMonths(int accountId)
+        public List<DateTime> GetAvailableYearsMonths(int accountId)
         {
             var dates = context.Transactions.Where(q => q.Account.AccountID == accountId).OrderByDescending(q => q.PostedDate).Select(i => i.PostedDate).ToList();
             var result = dates.Select(d => new DateTime(d.Year, d.Month, 1)).Distinct().ToList();
@@ -130,6 +130,24 @@ namespace BudgetApp.Data.Repository
                 }).ToList();
             }
             return results;
+        }
+
+        public double GetSumByCategory(int accountId, bool annual, DateTime date, string category)
+        {
+            double result;
+            if (annual)
+            {
+                result = context.Transactions
+                .Where(q => q.Account.AccountID == accountId
+                    && q.PostedDate.Year == date.Year && category.Equals(q.Category)).Sum(c => c.Amount);
+            }
+            else
+            {
+                result = context.Transactions
+                .Where(q => q.Account.AccountID == accountId && q.PostedDate.Year == date.Year
+                    && q.PostedDate.Month == date.Month && category.Equals(q.Category)).Sum(c => c.Amount);
+            }
+            return result;
         }
     }
 }

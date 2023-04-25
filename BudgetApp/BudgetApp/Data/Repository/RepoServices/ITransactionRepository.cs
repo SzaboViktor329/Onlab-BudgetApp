@@ -12,10 +12,11 @@ namespace BudgetApp.Data.Repository.RepoServices
         void Delete(Transaction transaction);
         List<Transaction> GetTransactionsOfAccount(int accountId, string transactionStatus);
         double getBalance(int accountId);
-        public List<DateTime> getAvailableYearsMonths(int accountId);
-        public List<DateTime> getAvailableYears(int accountId);
-        public double GetExpenses(int accountId, bool annual, DateTime date);
-        public double GetIncome(int accountId, bool annual, DateTime date);
-        public List<CategoryReportModel> GetReportByCategories(int accountId, bool annual, DateTime date);
+        List<DateTime> GetAvailableYearsMonths(int accountId);
+        List<DateTime> GetAvailableYears(int accountId);
+        double GetExpenses(int accountId, bool annual, DateTime date);
+        double GetIncome(int accountId, bool annual, DateTime date);
+        double GetSumByCategory(int accountId, bool annual, DateTime date, string category);
+        List<CategoryReportModel> GetReportByCategories(int accountId, bool annual, DateTime date);
     }
 }

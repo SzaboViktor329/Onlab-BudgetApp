@@ -21,7 +21,7 @@ namespace BudgetApp.Controllers
         [Route("availabledates")]
         public List<string> GetAvailableDates(int accountId)
         {
-            var dates = transactionRepository.getAvailableYearsMonths(accountId);
+            var dates = transactionRepository.GetAvailableYearsMonths(accountId);
             List<string> result = new List<string>();
             foreach (var date in dates)
             {
@@ -34,7 +34,7 @@ namespace BudgetApp.Controllers
         [Route("availableyears")]
         public List<string> GetAvailableYears(int accountId)
         {
-            var dates = transactionRepository.getAvailableYears(accountId);
+            var dates = transactionRepository.GetAvailableYears(accountId);
             List<string> result = new List<string>();
             foreach (var date in dates)
             {
@@ -65,7 +65,7 @@ namespace BudgetApp.Controllers
         public List<ReportModel> getMonthlyReports(int accountId, DateTime date)
         {
             List<ReportModel> reports = new List<ReportModel>();
-            var availableDates = transactionRepository.getAvailableYearsMonths(accountId);
+            var availableDates = transactionRepository.GetAvailableYearsMonths(accountId);
             foreach ( var availableDate in availableDates )
             {
                 if (availableDate.Year == date.Year)
