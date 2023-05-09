@@ -15,13 +15,15 @@ export class AddTransactionModal {
   @Output() addTransaction = new EventEmitter<TransactionViewModel>();
 
   categories = Object.values(Categories).filter(x => typeof x === "string");
-  dateToday=new Date();
+  dateToday=new Date().toISOString().split('T')[0];
+  minDate: string = '';
+
 
   public transactionForm = new FormGroup({
     name: new FormControl(),
     category: new FormControl(this.categories[0].toString()),
     monthly: new FormControl(false),
-    date: new FormControl(this.dateToday.toISOString().split('T')[0]),
+    date: new FormControl(this.dateToday),
     amount: new FormControl()
   });
   
@@ -45,8 +47,15 @@ export class AddTransactionModal {
     this.transactionForm.patchValue({
       category: this.categories[0].toString(),
       monthly: false,
-      date: this.dateToday.toISOString().split('T')[0]
+      date: this.dateToday
     });
+  }
+
+  handleMonthlyChange(checked: boolean) {
+    this.minDate = checked ? this.dateToday : '';
+    if((checked)&&(this.transactionForm.value.date as string < this.minDate)){
+      this.transactionForm.controls.date.setErrors({ 'invalid': true });
+    }
   }
 
   
