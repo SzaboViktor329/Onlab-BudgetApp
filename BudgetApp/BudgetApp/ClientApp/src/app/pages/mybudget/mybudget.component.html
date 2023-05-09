@@ -6,7 +6,7 @@
     </div>
     <p class="fs-4 fw-bold mb-2">Balance:</p>
     <div class="container d-flex align-items-center justify-content-center">
-        <p class="p-2 mb-3 fw-bold" name="balanceField" style="background-color: rgb(174, 174, 174,0.7); border-radius: 30%;">{{balance}} Ft</p>
+        <p class="p-2 mb-3 fw-bold" name="balanceField" style="background-color: rgb(174, 174, 174,0.7); border-radius: 30%;">{{thousandSeparator.transform(balance)}} Ft</p>
     </div>
 </div>
 
@@ -29,7 +29,7 @@
                     <p class="text-center pb-2 pt-2 m-0">{{upcomingTransaction.postedDate | date: 'yyyy-MM-dd'}}</p>
                 </div>
                 <div class="col-4">
-                    <p class="text-center pb-2 pt-2 m-0 rounded fw-bold" [style.color]="upcomingTransaction.amount!>0 ? 'green' : 'red'" style="background-color: rgb(174, 174, 174,0.9);">{{upcomingTransaction.amount}} Ft</p>
+                    <p class="text-center pb-2 pt-2 m-0 rounded fw-bold" [style.color]="upcomingTransaction.amount!>0 ? 'green' : 'red'" style="background-color: rgb(174, 174, 174,0.9);">{{thousandSeparator.transform(upcomingTransaction.amount ?? 0)}} Ft</p>
                 </div>
                 <div class="p-0" style="width: fit-content;">
                     <button type="button" class="btn btn-primary pb-2 pt-2 m-0" [value]="upcomingTransaction" (click)="removeTransaction(upcomingTransaction)">Remove</button>
@@ -51,7 +51,7 @@
                     <p class="text-center pb-2 pt-2 m-0">{{bookedTransaction.postedDate | date: 'yyyy-MM-dd'}}</p>
                 </div>
                 <div class="col-4">
-                    <p class="text-center pb-2 pt-2 m-0 rounded fw-bold" [style.color]="bookedTransaction.amount!>0 ? 'green' : 'red'" style="background-color: rgb(174, 174, 174,0.9);">{{bookedTransaction.amount}} Ft</p>
+                    <p class="text-center pb-2 pt-2 m-0 rounded fw-bold" [style.color]="bookedTransaction.amount!>0 ? 'green' : 'red'" style="background-color: rgb(174, 174, 174,0.9);">{{thousandSeparator.transform(bookedTransaction.amount ?? 0)}} Ft</p>
                 </div>
                 <div class="p-0" style="width: fit-content;">
                     <button type="button" class="btn btn-primary pb-2 pt-2 m-0" [value]="bookedTransaction" (click)="removeTransaction(bookedTransaction)">Remove</button>

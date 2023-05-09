@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThousandSeparatorPipe } from 'src/app/pipes/thousand-separator.pipe';
 import { AuthService } from 'src/app/services/auth.service';
 import { GoalService, GoalViewModel } from 'src/app/swagger-generated';
 
@@ -15,6 +16,8 @@ export class GoalsComponent {
   public availableYears : Date[] = [];
   public isIncome: boolean = true;
   public percentage: number = 30;
+
+  public thousandSeparator : ThousandSeparatorPipe = new ThousandSeparatorPipe();
 
   constructor(private goalService: GoalService, public authService: AuthService) {
     this.getAvailableYears();

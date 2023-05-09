@@ -5,9 +5,9 @@
             <select #t (change)="annualReportSelectionChanged(t.value)" class="form-select my-3 w-50 mx-auto" aria-label="Default select example" style="background-color: rgba(214, 214, 214, 0.7);">
                 <option *ngFor="let availableYear of availableYears" [value]="availableYear">{{availableYear.getFullYear()}}</option>
             </select>
-            <p class="m-3">Expenses: {{annualReport.expenses}} Ft</p>
-            <p class="m-3">Income: {{annualReport.income}} Ft</p>
-            <p class="m-3 fw-bold">Total: {{annualReport.total}} Ft</p>
+            <p class="m-3">Expenses: {{thousandSeparator.transform(annualReport.expenses ?? 0)}} Ft</p>
+            <p class="m-3">Income: {{thousandSeparator.transform(annualReport.income ?? 0)}} Ft</p>
+            <p class="m-3 fw-bold">Total: {{thousandSeparator.transform(annualReport.total ?? 0)}} Ft</p>
         </div>
         <div class="mx-auto ms-3 me-3 mb-3 p-3" name="piechartReport" style="background-color: rgb(174, 174, 174,0.7); margin-top: 60px; border-radius: 10%;">
             <div class="d-flex">
@@ -41,9 +41,9 @@
             <div *ngFor="let monthlyReport of monthlyReports" class="mx-auto m-3 p-2"
                 name="monthlyReport" style="background-color: rgb(23, 148, 210,0.7); width: fit-content; border-radius: 20%;">
                 <h2 class="fs-5 m-3">{{monthlyReport.month}}</h2>
-                <p class="m-3">Expenses: {{monthlyReport.expenses}} Ft</p>
-                <p class="m-3">Income: {{monthlyReport.income}} Ft</p>
-                <p class="m-3 fw-bold">Total: {{monthlyReport.total}} Ft</p>
+                <p class="m-3">Expenses: {{thousandSeparator.transform(monthlyReport.expenses ?? 0)}} Ft</p>
+                <p class="m-3">Income: {{thousandSeparator.transform(monthlyReport.income ?? 0)}} Ft</p>
+                <p class="m-3 fw-bold">Total: {{thousandSeparator.transform(monthlyReport.total ?? 0)}} Ft</p>
             </div>
         </div>
     </div>

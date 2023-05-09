@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { ThousandSeparatorPipe } from 'src/app/pipes/thousand-separator.pipe';
 import { TransactionService, TransactionViewModel } from 'src/app/swagger-generated';
 
 @Component({
@@ -13,6 +14,8 @@ export class MyBudgetComponent {
   public balance : number = 0;
   public accountId = this.authService.getSelectedAccountId();
   public account = this.authService.getSelectedAccount();
+
+  public thousandSeparator : ThousandSeparatorPipe = new ThousandSeparatorPipe();
 
   constructor(private transactionService : TransactionService, public authService: AuthService){
     this.getBalance();

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js/auto';
+import { ThousandSeparatorPipe } from 'src/app/pipes/thousand-separator.pipe';
 import { AuthService } from 'src/app/services/auth.service';
 import { CategoryReportModel, ReportModel, ReportService } from 'src/app/swagger-generated';
 
@@ -19,6 +20,8 @@ export class ReportsComponent implements OnInit {
   public categories : string[] = [];
   public amounts : number[] = [];
   public annual : boolean = true;
+
+  public thousandSeparator : ThousandSeparatorPipe = new ThousandSeparatorPipe();
 
   constructor(private reportService : ReportService, public authService : AuthService){
     reportService.apiReportAvailableyearsGet(this.accountId).subscribe(response=>{

@@ -14,13 +14,13 @@
                     <div class="d-flex align-items-center py-2 ps-3 pe-3 me-2" style="background-color:rgb(174, 174, 174,0.7);  border-radius: 10px 0px 0px 0px;">
                         <p class="m-0 fw-bold">{{annualGoal.category}}</p>
                     </div>
-                    <div class="py-2 ps-3 pe-3 text-center fw-bold" style="background-color:rgb(174, 174, 174,0.7); border-radius: 0px 0px 10px 0px;">Goal: <br>{{annualGoal.targetAmount}} Ft</div>
+                    <div class="py-2 ps-3 pe-3 text-center fw-bold" style="background-color:rgb(174, 174, 174,0.7); border-radius: 0px 0px 10px 0px;">Goal: <br>{{thousandSeparator.transform(annualGoal.targetAmount ?? 0)}} Ft</div>
                 </div>
                 <div class="p-3">
                     <div class="progress position-relative">
                         <div *ngIf="annualGoal.actualAmount && annualGoal.targetAmount" class="progress-bar" role="progressbar" [style.background-color]="annualGoal.category === 'Income' ? 'green' : 'red'"
                         [style.width]="100*annualGoal.actualAmount/annualGoal.targetAmount + '%'"></div>
-                        <small class="justify-content-center d-flex position-absolute w-100 fw-bold">{{annualGoal.actualAmount}} Ft</small>
+                        <small class="justify-content-center d-flex position-absolute w-100 fw-bold">{{thousandSeparator.transform(annualGoal.actualAmount ?? 0)}} Ft</small>
                     </div>
                 </div>
             </div>
@@ -39,13 +39,13 @@
                     <div class="d-flex align-items-center py-2 ps-3 pe-3 me-2" style="background-color:rgb(174, 174, 174,0.7);  border-radius: 10px 0px 0px 0px;">
                         <p class="m-0 fw-bold">{{monthlyGoal.category}}</p>
                     </div>
-                    <div class="py-2 ps-3 pe-3 text-center fw-bold" style="background-color:rgb(174, 174, 174,0.7); border-radius: 0px 0px 10px 0px;">Goal: <br>{{monthlyGoal.targetAmount}} Ft</div>
+                    <div class="py-2 ps-3 pe-3 text-center fw-bold" style="background-color:rgb(174, 174, 174,0.7); border-radius: 0px 0px 10px 0px;">Goal: <br>{{thousandSeparator.transform(monthlyGoal.targetAmount ?? 0)}} Ft</div>
                 </div>
                 <div class="p-3">
                     <div class="progress position-relative">
                         <div *ngIf="monthlyGoal.actualAmount && monthlyGoal.targetAmount" class="progress-bar" role="progressbar" [style.background-color]="monthlyGoal.category === 'Income' ? 'green' : 'red'"
                         [style.width]="100*monthlyGoal.actualAmount/monthlyGoal.targetAmount + '%'"></div>
-                        <small class="justify-content-center d-flex position-absolute w-100 fw-bold">{{monthlyGoal.actualAmount}} Ft</small>
+                        <small class="justify-content-center d-flex position-absolute w-100 fw-bold">{{thousandSeparator.transform(monthlyGoal.actualAmount ?? 0)}} Ft</small>
                     </div>
                 </div>
             </div>
