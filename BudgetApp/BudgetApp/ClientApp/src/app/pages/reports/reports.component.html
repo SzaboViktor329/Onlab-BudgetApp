@@ -1,4 +1,14 @@
-<div class="row w-100 m-0">
+<div *ngIf="accountId==-1" class="row justify-content-center" style="margin-top: 30px;">
+    <div class="fs-3 text-center">There aren't any account added yet.</div>
+    <div class="fs-5 text-center">Please add new account in the <a [routerLink]="['/profile']"
+        >Profile</a> page.</div>
+</div>
+<div *ngIf="availableYears.length==0 && accountId!=-1" class="row justify-content-center" style="margin-top: 30px;">
+    <div class="fs-3 text-center">There aren't any booked transactions yet.</div>
+    <div class="fs-5 text-center">Please add transactions in the <a [routerLink]="['/mybudget']"
+        >My Budget</a> page.</div>
+</div>
+<div *ngIf="availableYears.length!=0" class="row w-100 m-0">
     <div class="col-md-6">
         <div class="mx-auto m-3 pt-2 pb-2 ps-3 pe-3" name="annualReport" style="background-color: rgb(23, 148, 210,0.7); width: fit-content; border-radius: 20%;">
             <h1 class="fs-4 text-center m-3">Annual summary</h1>

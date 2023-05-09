@@ -1,64 +1,94 @@
-<div class="text-center mx-auto p-2" style="background-color: rgb(23, 148, 210,0.7); min-width: 300px; width: fit-content; border-radius: 20px;"
-    name="balanceComponent">
-    <p class="fs-4 fw-bold my-2">Account:</p>
-    <div class="container d-flex align-items-center justify-content-center">
-        <p class="p-2 mb-2" name="accountField" style="background-color: rgb(174, 174, 174,0.7); border-radius: 30%;">{{account.accountNumber}} {{account.accountName}}</p>
-    </div>
-    <p class="fs-4 fw-bold mb-2">Balance:</p>
-    <div class="container d-flex align-items-center justify-content-center">
-        <p class="p-2 mb-3 fw-bold" name="balanceField" style="background-color: rgb(174, 174, 174,0.7); border-radius: 30%;">{{thousandSeparator.transform(balance)}} Ft</p>
-    </div>
+<div *ngIf="accountId==-1" class="row justify-content-center" style="margin-top: 30px;">
+    <div class="fs-3 text-center">There aren't any account added yet.</div>
+    <div class="fs-5 text-center">Please add new account in the <a [routerLink]="['/profile']">Profile</a> page.</div>
 </div>
 
-<div class="container d-flex justify-content-center mt-3">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTransactionModal">Add income/expense</button>   
-</div>
+<div *ngIf="accountId!=-1">
+    <div class="text-center mx-auto p-2"
+        style="background-color: rgb(23, 148, 210,0.7); min-width: 300px; width: fit-content; border-radius: 20px;"
+        name="balanceComponent">
+        <p class="fs-4 fw-bold my-2">Account:</p>
+        <div class="container d-flex align-items-center justify-content-center">
+            <p class="p-2 mb-2" name="accountField"
+                style="background-color: rgb(174, 174, 174,0.7); border-radius: 30%;">{{account.accountNumber}}
+                {{account.accountName}}</p>
+        </div>
+        <p class="fs-4 fw-bold mb-2">Balance:</p>
+        <div class="container d-flex align-items-center justify-content-center">
+            <p class="p-2 mb-3 fw-bold" name="balanceField"
+                style="background-color: rgb(174, 174, 174,0.7); border-radius: 30%;">
+                {{thousandSeparator.transform(balance)}} Ft</p>
+        </div>
+    </div>
 
-<div class="my-3" name="transactionsPane">
-    <div name="upcomingPane">
-        <h1 class="fs-3 ms-3">Upcoming:</h1>
-        <div class="overflow-auto" style="max-height: 200px;">
-            <div *ngFor="let upcomingTransaction of upcomingTransactions" class="row mx-auto p-2 mt-2 mb-2" style="background-color:rgb(174, 174, 174,0.7); border-radius: 20px; width: 90%;">
-                <div class="col">
-                    <p class="text-center pb-2 pt-2 m-0">{{upcomingTransaction.transactionName}}</p>
+    <div class="container d-flex justify-content-center mt-3">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTransactionModal">Add
+            income/expense</button>
+    </div>
+
+    <div class="my-3" name="transactionsPane">
+        <div name="upcomingPane">
+            <h1 class="fs-3 ms-3">Upcoming:</h1>
+            <div *ngIf="upcomingTransactions.length==0" class="row justify-content-center">
+                <div class="col-md-6 fs-5 text-center">There aren't any upcoming transactions yet.</div>
+            </div>
+            <div class="overflow-auto" style="max-height: 200px;">
+                <div *ngFor="let upcomingTransaction of upcomingTransactions" class="row mx-auto p-2 mt-2 mb-2"
+                    style="background-color:rgb(174, 174, 174,0.7); border-radius: 20px; width: 90%;">
+                    <div class="col">
+                        <p class="text-center pb-2 pt-2 m-0">{{upcomingTransaction.transactionName}}</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-center pb-2 pt-2 m-0">{{upcomingTransaction.category}}</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-center pb-2 pt-2 m-0">{{upcomingTransaction.postedDate | date: 'yyyy-MM-dd'}}</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="text-center pb-2 pt-2 m-0 rounded fw-bold"
+                            [style.color]="upcomingTransaction.amount!>0 ? 'green' : 'red'"
+                            style="background-color: rgb(174, 174, 174,0.9);">
+                            {{thousandSeparator.transform(upcomingTransaction.amount ?? 0)}} Ft</p>
+                    </div>
+                    <div class="p-0" style="width: fit-content;">
+                        <button type="button" class="btn btn-primary pb-2 pt-2 m-0" [value]="upcomingTransaction"
+                            (click)="removeTransaction(upcomingTransaction)">Remove</button>
+                    </div>
                 </div>
-                <div class="col">
-                    <p class="text-center pb-2 pt-2 m-0">{{upcomingTransaction.category}}</p>
-                </div>
-                <div class="col">
-                    <p class="text-center pb-2 pt-2 m-0">{{upcomingTransaction.postedDate | date: 'yyyy-MM-dd'}}</p>
-                </div>
-                <div class="col-4">
-                    <p class="text-center pb-2 pt-2 m-0 rounded fw-bold" [style.color]="upcomingTransaction.amount!>0 ? 'green' : 'red'" style="background-color: rgb(174, 174, 174,0.9);">{{thousandSeparator.transform(upcomingTransaction.amount ?? 0)}} Ft</p>
-                </div>
-                <div class="p-0" style="width: fit-content;">
-                    <button type="button" class="btn btn-primary pb-2 pt-2 m-0" [value]="upcomingTransaction" (click)="removeTransaction(upcomingTransaction)">Remove</button>
+            </div>
+        </div>
+        <div name="bookedPane">
+            <h1 class="fs-3 ms-3">Booked transactions:</h1>
+            <div *ngIf="bookedTransactions.length==0" class="row justify-content-center">
+                <div class="col-md-6 fs-5 text-center">There aren't any booked transactions yet.</div>
+            </div>
+            <div class="overflow-auto" style="max-height: 200px;">
+                <div *ngFor="let bookedTransaction of bookedTransactions" class="row mx-auto p-2 mt-2 mb-2"
+                    style="background-color:rgb(174, 174, 174,0.7); border-radius: 20px; width: 90%;">
+                    <div class="col">
+                        <p class="text-center pb-2 pt-2 m-0">{{bookedTransaction.transactionName}}</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-center pb-2 pt-2 m-0">{{bookedTransaction.category}}</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-center pb-2 pt-2 m-0">{{bookedTransaction.postedDate | date: 'yyyy-MM-dd'}}</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="text-center pb-2 pt-2 m-0 rounded fw-bold"
+                            [style.color]="bookedTransaction.amount!>0 ? 'green' : 'red'"
+                            style="background-color: rgb(174, 174, 174,0.9);">
+                            {{thousandSeparator.transform(bookedTransaction.amount ?? 0)}} Ft</p>
+                    </div>
+                    <div class="p-0" style="width: fit-content;">
+                        <button type="button" class="btn btn-primary pb-2 pt-2 m-0" [value]="bookedTransaction"
+                            (click)="removeTransaction(bookedTransaction)">Remove</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div name="bookedPane">
-        <h1 class="fs-3 ms-3">Booked transactions:</h1>
-        <div class="overflow-auto" style="max-height: 200px;">
-            <div *ngFor="let bookedTransaction of bookedTransactions" class="row mx-auto p-2 mt-2 mb-2" style="background-color:rgb(174, 174, 174,0.7); border-radius: 20px; width: 90%;">
-                <div class="col">
-                    <p class="text-center pb-2 pt-2 m-0">{{bookedTransaction.transactionName}}</p>
-                </div>
-                <div class="col">
-                    <p class="text-center pb-2 pt-2 m-0">{{bookedTransaction.category}}</p>
-                </div>
-                <div class="col">
-                    <p class="text-center pb-2 pt-2 m-0">{{bookedTransaction.postedDate | date: 'yyyy-MM-dd'}}</p>
-                </div>
-                <div class="col-4">
-                    <p class="text-center pb-2 pt-2 m-0 rounded fw-bold" [style.color]="bookedTransaction.amount!>0 ? 'green' : 'red'" style="background-color: rgb(174, 174, 174,0.9);">{{thousandSeparator.transform(bookedTransaction.amount ?? 0)}} Ft</p>
-                </div>
-                <div class="p-0" style="width: fit-content;">
-                    <button type="button" class="btn btn-primary pb-2 pt-2 m-0" [value]="bookedTransaction" (click)="removeTransaction(bookedTransaction)">Remove</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
+
+
 <app-addtransaction-modal (addTransaction)="addTransaction($event)"></app-addtransaction-modal>
-
