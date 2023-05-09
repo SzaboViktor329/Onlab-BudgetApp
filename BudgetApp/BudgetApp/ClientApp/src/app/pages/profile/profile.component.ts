@@ -28,7 +28,7 @@ export class ProfileComponent implements AfterViewChecked {
   getAccounts(){
     this.accountService.apiAccountGet(this.authService.getUserId()).subscribe(response => {
       this.accounts = response;
-      if(this.authService.getSelectedAccountId()==-1){
+      if(this.authService.getSelectedAccountId()==-1 && this.accounts.length!=0){
         this.authService.setSelectedAccountId(this.accounts[0].accountID as number);
         this.authService.setSelectedAccount(this.accounts[0]);
       }
@@ -48,7 +48,10 @@ export class ProfileComponent implements AfterViewChecked {
       return;
     }
     var selectedIndex = this.accounts.findIndex(i => i.accountID==this.authService.getSelectedAccountId());
-    dropdownList.selectedIndex = selectedIndex;
+    if(dropdownList!=null){
+      dropdownList.selectedIndex = selectedIndex;
+    }
+    
     //console.log(dropdownList.selectedOptions);
     //console.log(dropdownList.selectedIndex);
   }

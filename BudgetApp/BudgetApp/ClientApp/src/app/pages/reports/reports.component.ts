@@ -20,6 +20,7 @@ export class ReportsComponent implements OnInit {
   public categories : string[] = [];
   public amounts : number[] = [];
   public annual : boolean = true;
+  public pieChartHidden : boolean =true;
 
   public thousandSeparator : ThousandSeparatorPipe = new ThousandSeparatorPipe();
 
@@ -27,6 +28,9 @@ export class ReportsComponent implements OnInit {
     reportService.apiReportAvailableyearsGet(this.accountId).subscribe(response=>{
       for(var dateString of response){
         this.availableYears.push(new Date(dateString));
+      }
+      if(this.availableYears.length!=0){
+        this.pieChartHidden=false;
       }
       this.getAnnualReport(this.availableYears[0]);
       this.getMonthlyReport(this.availableYears[0]);

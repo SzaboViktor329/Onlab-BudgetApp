@@ -49,6 +49,7 @@ export class AddTransactionModal {
       monthly: false,
       date: this.dateToday
     });
+    this.minDate='';
   }
 
   handleMonthlyChange(checked: boolean) {
