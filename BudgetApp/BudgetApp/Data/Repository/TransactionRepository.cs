@@ -49,19 +49,19 @@ namespace BudgetApp.Data.Repository
 
         public double getBalance(int accountId)
         {
-            return context.Transactions.Where(q => q.Account.AccountID == accountId).Sum(i => i.Amount);
+            return context.Transactions.Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("booked")).Sum(i => i.Amount);
         }
 
         public List<DateTime> GetAvailableYears(int accountId)
         {
-            var dates = context.Transactions.Where(q => q.Account.AccountID == accountId).OrderByDescending(q => q.PostedDate).Select(i => i.PostedDate).ToList();
+            var dates = context.Transactions.Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("booked")).OrderByDescending(q => q.PostedDate).Select(i => i.PostedDate).ToList();
             var result = dates.Select(d => new DateTime(d.Year, 1, 1)).Distinct().ToList();
             return result;
         }
 
         public List<DateTime> GetAvailableYearsMonths(int accountId)
         {
-            var dates = context.Transactions.Where(q => q.Account.AccountID == accountId).OrderByDescending(q => q.PostedDate).Select(i => i.PostedDate).ToList();
+            var dates = context.Transactions.Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("booked")).OrderByDescending(q => q.PostedDate).Select(i => i.PostedDate).ToList();
             var result = dates.Select(d => new DateTime(d.Year, d.Month, 1)).Distinct().ToList();
             return result;
         }
@@ -72,13 +72,13 @@ namespace BudgetApp.Data.Repository
             if (annual)
             {
                 result = context.Transactions
-                    .Where(q => q.Account.AccountID == accountId
+                    .Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("booked")
                     && q.PostedDate.Year==date.Year && q.Amount<0).Sum(i => i.Amount);
             }
             else
             {
                 result = context.Transactions
-                    .Where(q => q.Account.AccountID == accountId && q.PostedDate.Year == date.Year
+                    .Where(q => q.Account.AccountID == accountId && q.PostedDate.Year == date.Year && q.TransactionStatus.Equals("booked")
                     && q.PostedDate.Month==date.Month && q.Amount < 0).Sum(i => i.Amount);
             }
             return result;
@@ -90,13 +90,13 @@ namespace BudgetApp.Data.Repository
             if (annual)
             {
                 result = context.Transactions
-                    .Where(q => q.Account.AccountID == accountId
+                    .Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("booked")
                     && q.PostedDate.Year == date.Year && q.Amount >= 0).Sum(i => i.Amount);
             }
             else
             {
                 result = context.Transactions
-                    .Where(q => q.Account.AccountID == accountId && q.PostedDate.Year == date.Year
+                    .Where(q => q.Account.AccountID == accountId && q.PostedDate.Year == date.Year && q.TransactionStatus.Equals("booked")
                     && q.PostedDate.Month == date.Month && q.Amount >= 0).Sum(i => i.Amount);
             }
             return result;
@@ -108,7 +108,7 @@ namespace BudgetApp.Data.Repository
             if (annual)
             {
                 results = context.Transactions
-                .Where(q => q.Account.AccountID == accountId
+                .Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("booked")
                     && q.PostedDate.Year == date.Year)
                 .GroupBy(c => c.Category)
                 .Select(g => new CategoryReportModel()
@@ -120,7 +120,8 @@ namespace BudgetApp.Data.Repository
             else
             {
                 results = context.Transactions
-                .Where(q => q.Account.AccountID == accountId && q.PostedDate.Year == date.Year
+                .Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("booked")
+                    && q.PostedDate.Year == date.Year
                     && q.PostedDate.Month == date.Month)
                 .GroupBy(c => c.Category)
                 .Select(g => new CategoryReportModel()
@@ -138,13 +139,14 @@ namespace BudgetApp.Data.Repository
             if (annual)
             {
                 result = context.Transactions
-                .Where(q => q.Account.AccountID == accountId
+                .Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("booked")
                     && q.PostedDate.Year == date.Year && category.Equals(q.Category)).Sum(c => c.Amount);
             }
             else
             {
                 result = context.Transactions
-                .Where(q => q.Account.AccountID == accountId && q.PostedDate.Year == date.Year
+                .Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("booked")
+                    && q.PostedDate.Year == date.Year
                     && q.PostedDate.Month == date.Month && category.Equals(q.Category)).Sum(c => c.Amount);
             }
             return result;

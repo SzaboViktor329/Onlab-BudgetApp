@@ -19,6 +19,8 @@ builder.Services.AddScoped<IGoalRepository, GoalRepository>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var projectDirectory = Directory.GetCurrentDirectory();
+connectionString = connectionString.Replace("|ProjectDirectory|", projectDirectory);
 
 builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(connectionString));
 
