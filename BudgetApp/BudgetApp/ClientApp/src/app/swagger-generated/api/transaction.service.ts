@@ -104,6 +104,57 @@ export class TransactionService {
     /**
      * 
      * 
+     * @param accountId 
+     * @param page 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiTransactionBookedtransactionsGet(accountId?: number, page?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<TransactionViewModel>>;
+    public apiTransactionBookedtransactionsGet(accountId?: number, page?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<TransactionViewModel>>>;
+    public apiTransactionBookedtransactionsGet(accountId?: number, page?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<TransactionViewModel>>>;
+    public apiTransactionBookedtransactionsGet(accountId?: number, page?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (accountId !== undefined && accountId !== null) {
+            queryParameters = queryParameters.set('accountId', <any>accountId);
+        }
+        if (page !== undefined && page !== null) {
+            queryParameters = queryParameters.set('page', <any>page);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<TransactionViewModel>>('get',`${this.basePath}/api/Transaction/bookedtransactions`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param transactionId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -148,23 +199,18 @@ export class TransactionService {
      * 
      * 
      * @param accountId 
-     * @param transactionStatus 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public apiTransactionGet(accountId?: number, transactionStatus?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<TransactionViewModel>>;
-    public apiTransactionGet(accountId?: number, transactionStatus?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<TransactionViewModel>>>;
-    public apiTransactionGet(accountId?: number, transactionStatus?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<TransactionViewModel>>>;
-    public apiTransactionGet(accountId?: number, transactionStatus?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
+    public apiTransactionGetpagesGet(accountId?: number, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public apiTransactionGetpagesGet(accountId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public apiTransactionGetpagesGet(accountId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public apiTransactionGetpagesGet(accountId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (accountId !== undefined && accountId !== null) {
             queryParameters = queryParameters.set('accountId', <any>accountId);
-        }
-        if (transactionStatus !== undefined && transactionStatus !== null) {
-            queryParameters = queryParameters.set('transactionStatus', <any>transactionStatus);
         }
 
         let headers = this.defaultHeaders;
@@ -184,7 +230,7 @@ export class TransactionService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<TransactionViewModel>>('get',`${this.basePath}/api/Transaction`,
+        return this.httpClient.request<number>('get',`${this.basePath}/api/Transaction/getpages`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -239,6 +285,108 @@ export class TransactionService {
         return this.httpClient.request<any>('post',`${this.basePath}/api/Transaction`,
             {
                 body: body,
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param accountId 
+     * @param transactionStatus 
+     * @param date 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiTransactionTransactionsinmonthGet(accountId?: number, transactionStatus?: string, date?: Date, observe?: 'body', reportProgress?: boolean): Observable<Array<TransactionViewModel>>;
+    public apiTransactionTransactionsinmonthGet(accountId?: number, transactionStatus?: string, date?: Date, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<TransactionViewModel>>>;
+    public apiTransactionTransactionsinmonthGet(accountId?: number, transactionStatus?: string, date?: Date, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<TransactionViewModel>>>;
+    public apiTransactionTransactionsinmonthGet(accountId?: number, transactionStatus?: string, date?: Date, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (accountId !== undefined && accountId !== null) {
+            queryParameters = queryParameters.set('accountId', <any>accountId);
+        }
+        if (transactionStatus !== undefined && transactionStatus !== null) {
+            queryParameters = queryParameters.set('transactionStatus', <any>transactionStatus);
+        }
+        if (date !== undefined && date !== null) {
+            queryParameters = queryParameters.set('date', <any>date.toISOString());
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<TransactionViewModel>>('get',`${this.basePath}/api/Transaction/transactionsinmonth`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param accountId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiTransactionUpcomingtransactionsGet(accountId?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<TransactionViewModel>>;
+    public apiTransactionUpcomingtransactionsGet(accountId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<TransactionViewModel>>>;
+    public apiTransactionUpcomingtransactionsGet(accountId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<TransactionViewModel>>>;
+    public apiTransactionUpcomingtransactionsGet(accountId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (accountId !== undefined && accountId !== null) {
+            queryParameters = queryParameters.set('accountId', <any>accountId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<TransactionViewModel>>('get',`${this.basePath}/api/Transaction/upcomingtransactions`,
+            {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -1,13 +1,14 @@
 ﻿using BudgetApp.Data.Repository.RepoServices;
 using BudgetApp.Models;
 using BudgetApp.ViewModels;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BudgetApp.Data.Repository
 {
     public class TransactionRepository : ITransactionRepository
     {
         private readonly ApplicationDBContext context;
-
+        private const int resultsNumber = 5;
         public TransactionRepository(ApplicationDBContext context)
         {
             this.context = context;
@@ -30,11 +31,37 @@ namespace BudgetApp.Data.Repository
             return context.Transactions.ToList();
         }
 
-        public List<Transaction> GetTransactionsOfAccount(int accountId, string transactionStatus)
+        public int GetPages(int accountId)
         {
-            return context.Transactions.Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals(transactionStatus))
+            double rows = context.Transactions.Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("booked")).ToList().Count;
+            int result = (int)Math.Ceiling(rows / resultsNumber);
+            if(result == 0)
+            {
+                return 1;
+            }
+            return result;
+        }
+
+        public List<Transaction> GetUpcomingTransactions(int accountId)
+        {
+            return context.Transactions.Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("upcoming"))
                 .OrderByDescending(q => q.PostedDate).ThenByDescending(q => q.TransactionId).ToList();
         }
+
+        public List<Transaction> GetBookedTransactions(int accountId, int page)
+        {
+            return context.Transactions.Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("booked"))
+                .OrderByDescending(q => q.PostedDate).ThenByDescending(q => q.TransactionId).Skip((page-1)*resultsNumber).Take(resultsNumber).ToList();
+        }
+
+        public List<Transaction> GetTransactionsInMonth(int accountId, string transactionStatus, DateTime date)
+        {
+            return context.Transactions
+                .Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals(transactionStatus) 
+                 && q.PostedDate.Year == date.Year && q.PostedDate.Month == date.Month)
+                .OrderByDescending(q => q.PostedDate).ThenByDescending(q => q.TransactionId).ToList();
+        }
+
 
         public Transaction GetById(int id)
         {
@@ -151,5 +178,7 @@ namespace BudgetApp.Data.Repository
             }
             return result;
         }
+
+        
     }
 }

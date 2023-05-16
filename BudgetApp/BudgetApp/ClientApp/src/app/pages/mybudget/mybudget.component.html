@@ -4,20 +4,37 @@
 </div>
 
 <div *ngIf="accountId!=-1">
-    <div class="text-center mx-auto p-2"
-        style="background-color: rgb(23, 148, 210,0.7); min-width: 300px; width: fit-content; border-radius: 20px;"
-        name="balanceComponent">
-        <p class="fs-4 fw-bold my-2">Account:</p>
-        <div class="container d-flex align-items-center justify-content-center">
-            <p class="p-2 mb-2" name="accountField"
-                style="background-color: rgb(174, 174, 174,0.7); border-radius: 30%;">{{account.accountNumber}}
-                {{account.accountName}}</p>
+    <div class="row" style="margin-bottom: 30px;">
+        <div class="col-md-7 mb-3 d-flex align-items-center justify-content-center">
+            <div class="text-center p-2"
+                style="background-color: rgba(23, 148, 210, 0.7); width:80%; height: 250px; border-radius: 20px;"
+                name="balanceComponent">
+                <div class="d-flex flex-column justify-content-center align-items-center h-100">
+                    <p class="fs-3 fw-bold my-2">Account:</p>
+                    <p class="p-2 fs-5 mb-2" name="accountField"
+                        style="background-color: rgba(174, 174, 174, 0.7); border-radius: 30%;">
+                        {{account.accountNumber}} {{account.accountName}}
+                    </p>
+                    <p class="fs-3 fw-bold mb-2">Balance:</p>
+                    <p class="p-2 mb-3 fs-3 fw-bold" name="balanceField"
+                        style="background-color: rgba(174, 174, 174, 0.7); border-radius: 30%;">
+                        {{thousandSeparator.transform(balance)}} Ft
+                    </p>
+                </div>
+            </div>
         </div>
-        <p class="fs-4 fw-bold mb-2">Balance:</p>
-        <div class="container d-flex align-items-center justify-content-center">
-            <p class="p-2 mb-3 fw-bold" name="balanceField"
-                style="background-color: rgb(174, 174, 174,0.7); border-radius: 30%;">
-                {{thousandSeparator.transform(balance)}} Ft</p>
+        <div class="col-md-5 mb-3 d-flex align-items-center justify-content-center">
+            <div class="text-center p-2"
+                style="background-color: rgba(174, 174, 174, 0.7); width:80%; height: 200px; border-radius: 20px;"
+                name="balanceComponent">
+                <div class="d-flex flex-column justify-content-center align-items-center h-100">
+                    <p class="fs-3 fw-bold mb-2">Upcoming in next month:</p>
+                    <p class="p-2 mb-3 fs-3 fw-bold" name="balanceField"
+                        style="background-color: rgba(23, 148, 210, 0.7); border-radius: 30%;">
+                        {{thousandSeparator.transform(upcoming)}} Ft
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -62,6 +79,15 @@
             <div *ngIf="bookedTransactions.length==0" class="row justify-content-center">
                 <div class="col-md-6 fs-5 text-center">There aren't any booked transactions yet.</div>
             </div>
+            <div class="row justify-content-end mb-3">
+                <div class="col-md-3" style="min-width: 100px;">
+                  <select class="form-select" (change)="getBookedTransactions($any($event.target).value)" style="background-color: rgba(206, 206, 206, 0.7); min-width: 200px;">
+                    <option value="thisMonth">This month</option>
+                    <option value="lastMonth">Last month</option>
+                    <option value="all">All transaction</option>
+                  </select>
+                </div>
+              </div>
             <div class="overflow-auto" style="max-height: 200px;">
                 <div *ngFor="let bookedTransaction of bookedTransactions" class="row mx-auto p-2 mt-2 mb-2"
                     style="background-color:rgb(174, 174, 174,0.7); border-radius: 20px; width: 90%;">
@@ -86,9 +112,21 @@
                     </div>
                 </div>
             </div>
+            <nav *ngIf="allTransactions" aria-label="Page navigation example">
+                <ul class="pagination justify-content-center mt-3">
+                    <li class="page-item"><a class="page-link" style="cursor: pointer;" (click)="getFirstPage()">First</a></li>
+                    <li class="page-item"><a class="page-link" style="cursor: pointer;" (click)="previousPage()">
+                            <span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                    <li class="page-item"><a class="page-link">{{currentPage}}</a></li>
+                    <li class="page-item"><a class="page-link" style="cursor: pointer;" (click)="nextPage()">
+                            <span aria-hidden="true">&raquo;</span></a>
+                    </li>
+                    <li class="page-item"><a class="page-link" style="cursor: pointer;" (click)="getLastPage()">Last</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
-
 
 <app-addtransaction-modal (addTransaction)="addTransaction($event)"></app-addtransaction-modal>

@@ -46,9 +46,10 @@ namespace BudgetApp.Controllers
         }
 
         [HttpGet]
-        public List<TransactionViewModel> GetTransactions(int accountId, string transactionStatus)
+        [Route("upcomingtransactions")]
+        public List<TransactionViewModel> GetUpcomingTransactions(int accountId)
         {
-            var transactions = transactionRepository.GetTransactionsOfAccount(accountId, transactionStatus);
+            var transactions = transactionRepository.GetUpcomingTransactions(accountId);
             List<TransactionViewModel> transactionViews = new List<TransactionViewModel>();
             foreach (var transaction in transactions)
             {
@@ -65,6 +66,58 @@ namespace BudgetApp.Controllers
             }
             return transactionViews;
         }
+        [HttpGet]
+        [Route("bookedtransactions")]
+        public List<TransactionViewModel> GetBookedTransactions(int accountId, int page)
+        {
+            var transactions = transactionRepository.GetBookedTransactions(accountId,page);
+            List<TransactionViewModel> transactionViews = new List<TransactionViewModel>();
+            foreach (var transaction in transactions)
+            {
+                transactionViews.Add(new TransactionViewModel()
+                {
+                    TransactionId = transaction.TransactionId,
+                    TransactionName = transaction.TransactionName,
+                    Category = transaction.Category,
+                    TransactionStatus = transaction.TransactionStatus,
+                    PostedDate = transaction.PostedDate,
+                    UpcomingDate = transaction.UpcomingDate,
+                    Amount = transaction.Amount
+                });
+            }
+            return transactionViews;
+        }
+
+        [HttpGet]
+        [Route("getpages")]
+        public int GetPages(int accountId)
+        {
+            return transactionRepository.GetPages(accountId);
+        }
+
+
+        [HttpGet]
+        [Route("transactionsinmonth")]
+        public List<TransactionViewModel> GetTransactionsInMonth(int accountId, string transactionStatus, DateTime date)
+        {
+            var transactions = transactionRepository.GetTransactionsInMonth(accountId, transactionStatus, date);
+            List<TransactionViewModel> transactionViews = new List<TransactionViewModel>();
+            foreach (var transaction in transactions)
+            {
+                transactionViews.Add(new TransactionViewModel()
+                {
+                    TransactionId = transaction.TransactionId,
+                    TransactionName = transaction.TransactionName,
+                    Category = transaction.Category,
+                    TransactionStatus = transaction.TransactionStatus,
+                    PostedDate = transaction.PostedDate,
+                    UpcomingDate = transaction.UpcomingDate,
+                    Amount = transaction.Amount
+                });
+            }
+            return transactionViews;
+        }
+
         [HttpDelete]
         public IActionResult removeTransaction(int transactionId)
         {

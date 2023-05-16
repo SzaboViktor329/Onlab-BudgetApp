@@ -10,7 +10,10 @@ namespace BudgetApp.Data.Repository.RepoServices
         void Add(Transaction transaction);
         void Update(Transaction transaction);
         void Delete(Transaction transaction);
-        List<Transaction> GetTransactionsOfAccount(int accountId, string transactionStatus);
+        List<Transaction> GetUpcomingTransactions(int accountId);
+        List<Transaction> GetBookedTransactions(int accountId, int page);
+        List<Transaction> GetTransactionsInMonth(int accountId, string transactionStatus, DateTime date);
+        int GetPages(int accountId);
         double getBalance(int accountId);
         List<DateTime> GetAvailableYearsMonths(int accountId);
         List<DateTime> GetAvailableYears(int accountId);
