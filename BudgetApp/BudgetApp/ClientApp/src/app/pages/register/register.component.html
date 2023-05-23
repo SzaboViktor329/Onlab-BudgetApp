@@ -37,6 +37,12 @@
             <label for="floatingPassword">Password</label>
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
+        <div class="form-floating pb-3">
+            <input type="password" name="confirmPassword" ngModel required class="form-control" 
+            formControlName="confirmPassword" [class.is-invalid]="registerForm.controls.confirmPassword.touched && registerForm.controls.password.value !== registerForm.controls.confirmPassword.value" id="confirmPassword" placeholder="Confirm Password">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="invalid-feedback">Passwords do not match.</div>
+        </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="registerForm.invalid">Register</button>
     </form>
 </div>

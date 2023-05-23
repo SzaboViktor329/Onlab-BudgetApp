@@ -20,6 +20,7 @@ export class RegisterComponent {
     public registerForm = new FormGroup({
         username: new FormControl(),
         password: new FormControl(),
+        confirmPassword: new FormControl(),
         email: new FormControl(),
         phoneNumber: new FormControl(),
         firstName: new FormControl(),
