@@ -26,6 +26,7 @@ export class MyBudgetComponent {
   constructor(private transactionService: TransactionService, public authService: AuthService) {
     console.log(this.currentPage);
     this.getBalance();
+    this.getUpcomingSumInNextMonth();
     this.getAllTransactions();
   }
 
@@ -44,6 +45,7 @@ export class MyBudgetComponent {
     this.transactionService.apiTransactionPost(transaction, this.accountId).subscribe(response => {
       this.getAllTransactions();
       this.getBalance();
+      this.getUpcomingSumInNextMonth();
       console.log(response);
     });
   }
@@ -83,6 +85,7 @@ export class MyBudgetComponent {
     this.transactionService.apiTransactionDelete(transaction.transactionId).subscribe(response => {
       this.getAllTransactions();
       this.getBalance();
+      this.getUpcomingSumInNextMonth();
       console.log(response);
     });
   }
@@ -91,6 +94,14 @@ export class MyBudgetComponent {
     this.transactionService.apiTransactionBalanceGet(this.accountId).subscribe(response => {
       this.balance = response;
     });
+  }
+
+  getUpcomingSumInNextMonth(){
+    let date = new Date();
+    date.setMonth(date.getMonth()+1);
+    this.transactionService.apiTransactionUpcominginmonthGet(this.accountId,date).subscribe(response => {
+      this.upcoming=response;
+    })
   }
 
   getBookedTransactions(type: string) {

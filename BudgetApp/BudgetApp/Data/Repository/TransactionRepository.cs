@@ -79,6 +79,12 @@ namespace BudgetApp.Data.Repository
             return context.Transactions.Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("booked")).Sum(i => i.Amount);
         }
 
+        public double getUpcomingSumInMonth(int accountId, DateTime date)
+        {
+            return context.Transactions.Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("upcoming") 
+            && q.UpcomingDate.Year == date.Year && q.UpcomingDate.Month == date.Month).Sum(i => i.Amount);
+        }
+
         public List<DateTime> GetAvailableYears(int accountId)
         {
             var dates = context.Transactions.Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("booked")).OrderByDescending(q => q.PostedDate).Select(i => i.PostedDate).ToList();

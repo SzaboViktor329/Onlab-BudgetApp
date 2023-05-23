@@ -136,5 +136,12 @@ namespace BudgetApp.Controllers
         {
             return transactionRepository.getBalance(accountId);
         }
+
+        [HttpGet]
+        [Route("upcominginmonth")]
+        public double getUpcomingSumInMonth(int accountId, DateTime date)
+        {
+            return transactionRepository.getUpcomingSumInMonth(accountId, date);
+        }
     }
 }

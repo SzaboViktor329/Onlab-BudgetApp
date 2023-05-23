@@ -15,6 +15,7 @@ namespace BudgetApp.Data.Repository.RepoServices
         List<Transaction> GetTransactionsInMonth(int accountId, string transactionStatus, DateTime date);
         int GetPages(int accountId);
         double getBalance(int accountId);
+        double getUpcomingSumInMonth(int accountId, DateTime date);
         List<DateTime> GetAvailableYearsMonths(int accountId);
         List<DateTime> GetAvailableYears(int accountId);
         double GetExpenses(int accountId, bool annual, DateTime date);

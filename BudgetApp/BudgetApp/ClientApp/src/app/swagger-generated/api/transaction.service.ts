@@ -354,6 +354,57 @@ export class TransactionService {
      * 
      * 
      * @param accountId 
+     * @param date 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public apiTransactionUpcominginmonthGet(accountId?: number, date?: Date, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public apiTransactionUpcominginmonthGet(accountId?: number, date?: Date, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public apiTransactionUpcominginmonthGet(accountId?: number, date?: Date, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public apiTransactionUpcominginmonthGet(accountId?: number, date?: Date, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (accountId !== undefined && accountId !== null) {
+            queryParameters = queryParameters.set('accountId', <any>accountId);
+        }
+        if (date !== undefined && date !== null) {
+            queryParameters = queryParameters.set('date', <any>date.toISOString());
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<number>('get',`${this.basePath}/api/Transaction/upcominginmonth`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param accountId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
