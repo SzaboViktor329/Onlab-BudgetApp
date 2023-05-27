@@ -185,6 +185,9 @@ namespace BudgetApp.Data.Repository
             return result;
         }
 
-        
+        public bool TransactionOfUser(string userId, int transactiontId)
+        {
+            return context.Transactions.Any(q=> q.Account.User.Id == userId && q.TransactionId == transactiontId);
+        }
     }
 }

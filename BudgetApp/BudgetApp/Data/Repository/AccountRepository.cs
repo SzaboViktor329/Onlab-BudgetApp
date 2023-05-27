@@ -12,6 +12,11 @@ namespace BudgetApp.Data.Repository
             this.context = context;
         }
 
+        public bool AccountOfUser(string userId, int accountId)
+        {
+            return context.Accounts.Any(q => q.User.Id == userId && q.AccountID== accountId);
+        }
+
         public void Add(Account account)
         {
             context.Accounts.Add(account);

@@ -9,6 +9,7 @@ namespace BudgetApp.Data.Repository.RepoServices
         void Add(Account account);
         void Update(Account account);
         void Delete(Account account);
+        bool AccountOfUser(string userId, int accountId);
         List<Account> GetAccountsOfUser(string userId);
     }
 }

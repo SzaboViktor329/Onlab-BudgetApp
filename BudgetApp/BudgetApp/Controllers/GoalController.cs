@@ -29,6 +29,10 @@ namespace BudgetApp.Controllers
             {
                 return BadRequest("Account not exist");
             }
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            {
+                return BadRequest("Not the user's account");
+            }
             var goals = goalRepository.GetGoalsOfAccount(accountId, goalViewModel.Annual, goalViewModel.GoalDate);
             foreach(var g in goals)
             {
@@ -52,6 +56,10 @@ namespace BudgetApp.Controllers
         [Route("availabledates")]
         public List<string> GetAvailableDates(int accountId)
         {
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            {
+                return null;
+            }
             var dates = goalRepository.GetAvailableYearsMonths(accountId);
             List<string> result = new List<string>();
             foreach (var date in dates)
@@ -65,6 +73,10 @@ namespace BudgetApp.Controllers
         [Route("availableyears")]
         public List<string> GetAvailableYears(int accountId)
         {
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            {
+                return null;
+            }
             var dates = goalRepository.GetAvailableYears(accountId);
             List<string> result = new List<string>();
             foreach (var date in dates)
@@ -77,6 +89,10 @@ namespace BudgetApp.Controllers
         [HttpGet]
         public List<GoalViewModel> GetGoals(int accountId, bool annual, DateTime date)
         {
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            {
+                return null;
+            }
             var goals = goalRepository.GetGoalsOfAccount(accountId, annual, date);
             var result = new List<GoalViewModel>();
             foreach (var goal in goals)

@@ -28,6 +28,10 @@ namespace BudgetApp.Controllers
             {
                 return BadRequest("Account not exist");
             }
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            {
+                return BadRequest("Not the user's account");
+            }
             if (!transactionViewModel.Category.Equals("Income"))
             {
                 transactionViewModel.Amount*=-1;
@@ -49,6 +53,10 @@ namespace BudgetApp.Controllers
         [Route("upcomingtransactions")]
         public List<TransactionViewModel> GetUpcomingTransactions(int accountId)
         {
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            {
+                return null;
+            }
             var transactions = transactionRepository.GetUpcomingTransactions(accountId);
             List<TransactionViewModel> transactionViews = new List<TransactionViewModel>();
             foreach (var transaction in transactions)
@@ -70,6 +78,10 @@ namespace BudgetApp.Controllers
         [Route("bookedtransactions")]
         public List<TransactionViewModel> GetBookedTransactions(int accountId, int page)
         {
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            {
+                return null;
+            }
             var transactions = transactionRepository.GetBookedTransactions(accountId,page);
             List<TransactionViewModel> transactionViews = new List<TransactionViewModel>();
             foreach (var transaction in transactions)
@@ -92,6 +104,10 @@ namespace BudgetApp.Controllers
         [Route("getpages")]
         public int GetPages(int accountId)
         {
+            if(!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            {
+                return 1;
+            }
             return transactionRepository.GetPages(accountId);
         }
 
@@ -100,6 +116,10 @@ namespace BudgetApp.Controllers
         [Route("transactionsinmonth")]
         public List<TransactionViewModel> GetTransactionsInMonth(int accountId, string transactionStatus, DateTime date)
         {
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            {
+                return null;
+            }
             var transactions = transactionRepository.GetTransactionsInMonth(accountId, transactionStatus, date);
             List<TransactionViewModel> transactionViews = new List<TransactionViewModel>();
             foreach (var transaction in transactions)
@@ -126,6 +146,10 @@ namespace BudgetApp.Controllers
             {
                 return BadRequest("Transaction not exist");
             }
+            if(!transactionRepository.TransactionOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), transactionId))
+            {
+                return BadRequest("Not the user's transaction");
+            }
             transactionRepository.Delete(transaction);
             return Ok();
         }
@@ -134,6 +158,10 @@ namespace BudgetApp.Controllers
         [Route("balance")]
         public double getBalance(int accountId)
         {
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            {
+                return -1;
+            }
             return transactionRepository.getBalance(accountId);
         }
 
@@ -141,6 +169,10 @@ namespace BudgetApp.Controllers
         [Route("upcominginmonth")]
         public double getUpcomingSumInMonth(int accountId, DateTime date)
         {
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            {
+                return -1;
+            }
             return transactionRepository.getUpcomingSumInMonth(accountId, date);
         }
     }
