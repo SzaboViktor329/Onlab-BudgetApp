@@ -27,6 +27,8 @@ export class RegisterComponent {
         lastName: new FormControl()
     });
 
+    public registerFailed: boolean = false;
+
     constructor(private identityService: IdentityService, private router: Router) {
     }
 
@@ -42,8 +44,12 @@ export class RegisterComponent {
         this.identityService.identityRegisterPost(this.registerFormApi).subscribe(response => {
             console.log(response.result);
             this.router.navigate(['/login']);
-        }, error => console.log("nem jo"));
-        
-        console.log(this.registerFormApi);
+        }, error => {
+            this.registerFailed = true;
+        });
+    }
+
+    onFormInteraction() {
+        this.registerFailed = false;
     }
 }

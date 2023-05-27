@@ -1,5 +1,5 @@
 <div class="col-md-6 offset-md-3 mt-4 mb-md-3">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" (click)="onFormInteraction()">
         <h1 class="h3 mb-3 fw-normal text-center">Please register a new user account</h1>
         <div class="form-floating pb-3">
             <input type="text" name="username" required class="form-control" 
@@ -44,5 +44,6 @@
             <div class="invalid-feedback">Passwords do not match.</div>
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="registerForm.invalid">Register</button>
+        <div *ngIf="registerFailed" class="alert alert-danger mt-3">The user already exists.</div>
     </form>
 </div>
