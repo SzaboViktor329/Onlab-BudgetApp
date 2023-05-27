@@ -1,5 +1,5 @@
 <div class="col-md-6 offset-md-3 mt-4">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" (click)="onFormInteraction()">
         <h1 class="h3 mb-3 fw-normal text-center">Please login</h1>
         <div class="form-floating pb-3">
             <input type="text" name="username" required class="form-control" formControlName="username" [class.is-invalid]="loginForm.controls.username.touched && loginForm.controls.username.invalid" id="floatingUsername"
@@ -14,5 +14,6 @@
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="loginForm.invalid">Login</button>
+        <div *ngIf="loginFailed" class="alert alert-danger mt-3">Login unsuccessful. Please check your credentials and try again.</div>
     </form>
 </div>
