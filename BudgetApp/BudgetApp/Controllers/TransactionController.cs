@@ -28,7 +28,7 @@ namespace BudgetApp.Controllers
             {
                 return BadRequest("Account not exist");
             }
-            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
                 return BadRequest("Not the user's account");
             }
@@ -53,9 +53,9 @@ namespace BudgetApp.Controllers
         [Route("upcomingtransactions")]
         public List<TransactionViewModel> GetUpcomingTransactions(int accountId)
         {
-            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
-                return null;
+                return new List<TransactionViewModel>();
             }
             var transactions = transactionRepository.GetUpcomingTransactions(accountId);
             List<TransactionViewModel> transactionViews = new List<TransactionViewModel>();
@@ -78,9 +78,9 @@ namespace BudgetApp.Controllers
         [Route("bookedtransactions")]
         public List<TransactionViewModel> GetBookedTransactions(int accountId, int page)
         {
-            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
-                return null;
+                return new List<TransactionViewModel>();
             }
             var transactions = transactionRepository.GetBookedTransactions(accountId,page);
             List<TransactionViewModel> transactionViews = new List<TransactionViewModel>();
@@ -104,7 +104,7 @@ namespace BudgetApp.Controllers
         [Route("getpages")]
         public int GetPages(int accountId)
         {
-            if(!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if(!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
                 return 1;
             }
@@ -116,9 +116,9 @@ namespace BudgetApp.Controllers
         [Route("transactionsinmonth")]
         public List<TransactionViewModel> GetTransactionsInMonth(int accountId, string transactionStatus, DateTime date)
         {
-            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
-                return null;
+                return new List<TransactionViewModel>();
             }
             var transactions = transactionRepository.GetTransactionsInMonth(accountId, transactionStatus, date);
             List<TransactionViewModel> transactionViews = new List<TransactionViewModel>();
@@ -146,7 +146,7 @@ namespace BudgetApp.Controllers
             {
                 return BadRequest("Transaction not exist");
             }
-            if(!transactionRepository.TransactionOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), transactionId))
+            if(!transactionRepository.TransactionOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, transactionId))
             {
                 return BadRequest("Not the user's transaction");
             }
@@ -158,7 +158,7 @@ namespace BudgetApp.Controllers
         [Route("balance")]
         public double getBalance(int accountId)
         {
-            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
                 return -1;
             }
@@ -169,7 +169,7 @@ namespace BudgetApp.Controllers
         [Route("upcominginmonth")]
         public double getUpcomingSumInMonth(int accountId, DateTime date)
         {
-            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
                 return -1;
             }

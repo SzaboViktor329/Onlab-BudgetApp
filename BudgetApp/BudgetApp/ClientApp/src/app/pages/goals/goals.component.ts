@@ -25,6 +25,7 @@ export class GoalsComponent {
   }
 
   getAvailableYears(){
+    this.availableYears = [];
     this.goalService.apiGoalAvailableyearsGet(this.accountId).subscribe(response=>{
       for(var dateString of response){
         this.availableYears.push(new Date(dateString));
@@ -33,6 +34,7 @@ export class GoalsComponent {
     });
   }
   getAvailableYearsMonths(){
+    this.availableYearsMonths = [];
     this.goalService.apiGoalAvailabledatesGet(this.accountId).subscribe(response=>{
       for(var dateString of response){
         this.availableYearsMonths.push(new Date(dateString));

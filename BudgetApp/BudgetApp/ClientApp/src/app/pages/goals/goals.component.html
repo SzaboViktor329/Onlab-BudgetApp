@@ -18,7 +18,7 @@
             <select *ngIf="availableYears.length!=0" #t (change)="annualGoalSelectionChanged(t.value)" class="form-select my-3 ms-5 fs-5" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.775); width: fit-content;">
                 <option *ngFor="let availableYear of availableYears" [value]="availableYear">{{availableYear.getFullYear()}}</option>
             </select>
-            <div class="overflow-auto" style="max-height: 200px;">
+            <div>
                 <div *ngFor="let annualGoal of annualGoals" class="overflow-auto m-3 p-2 w-75 mx-auto" style="background-color: rgb(23, 148, 210,0.7); border-radius: 20px;">
                     <div class="d-flex">
                         <div class="d-flex align-items-center py-2 ps-3 pe-3 me-2" style="background-color:rgb(174, 174, 174,0.7);  border-radius: 10px 0px 0px 0px;">
@@ -46,7 +46,7 @@
                     <option *ngFor="let availableYearsMonth of availableYearsMonths" [value]="availableYearsMonth">{{availableYearsMonth.getFullYear()}} {{availableYearsMonth.toLocaleString('en-us', { month: 'long' })}}</option>
                 </select>
             </div>
-            <div class="overflow-auto" style="max-height: 200px;">
+            <div>
                 <div *ngFor="let monthlyGoal of monthlyGoals" class="overflow-auto m-3 p-2 w-75 mx-auto" style="background-color: rgb(23, 148, 210,0.7); border-radius: 20px;">
                     <div class="d-flex">
                         <div class="d-flex align-items-center py-2 ps-3 pe-3 me-2" style="background-color:rgb(174, 174, 174,0.7);  border-radius: 10px 0px 0px 0px;">

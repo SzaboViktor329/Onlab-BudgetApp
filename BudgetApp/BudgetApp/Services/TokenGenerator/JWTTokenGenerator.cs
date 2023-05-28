@@ -42,7 +42,7 @@ namespace BudgetApp.Services.TokenGenerator
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddMinutes(2),
+                Expires = DateTime.Now.AddMinutes(60),
                 SigningCredentials = creds,
                 Issuer = _config["Token:Issuer"],
             };

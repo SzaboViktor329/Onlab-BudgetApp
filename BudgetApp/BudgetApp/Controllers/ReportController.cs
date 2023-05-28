@@ -23,9 +23,9 @@ namespace BudgetApp.Controllers
         [Route("availabledates")]
         public List<string> GetAvailableDates(int accountId)
         {
-            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
-                return null;
+                return new List<string>();
             }
             var dates = transactionRepository.GetAvailableYearsMonths(accountId);
             List<string> result = new List<string>();
@@ -40,9 +40,9 @@ namespace BudgetApp.Controllers
         [Route("availableyears")]
         public List<string> GetAvailableYears(int accountId)
         {
-            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
-                return null;
+                return new List<string>();
             }
             var dates = transactionRepository.GetAvailableYears(accountId);
             List<string> result = new List<string>();
@@ -57,9 +57,9 @@ namespace BudgetApp.Controllers
         [Route("annual")]
         public ReportModel getAnnualReport(int accountId, DateTime date)
         {
-            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
-                return null;
+                return new ReportModel();
             }
             ReportModel report;
             var expenses = transactionRepository.GetExpenses(accountId, true, date);
@@ -78,9 +78,9 @@ namespace BudgetApp.Controllers
         [Route("monthly")]
         public List<ReportModel> getMonthlyReports(int accountId, DateTime date)
         {
-            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
-                return null;
+                return new List<ReportModel>();
             }
             List<ReportModel> reports = new List<ReportModel>();
             var availableDates = transactionRepository.GetAvailableYearsMonths(accountId);
@@ -107,9 +107,9 @@ namespace BudgetApp.Controllers
         [Route("categoriesreport")]
         public List<CategoryReportModel> GetCategoriesReport(int accountId, bool annual, DateTime date)
         {
-            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
-                return null;
+                return new List<CategoryReportModel>();
             }
             var categoriesReports = transactionRepository.GetReportByCategories(accountId, annual, date);
             return categoriesReports;

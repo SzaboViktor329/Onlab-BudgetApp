@@ -29,7 +29,7 @@ namespace BudgetApp.Controllers
             {
                 return BadRequest("Account not exist");
             }
-            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
                 return BadRequest("Not the user's account");
             }
@@ -56,9 +56,9 @@ namespace BudgetApp.Controllers
         [Route("availabledates")]
         public List<string> GetAvailableDates(int accountId)
         {
-            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
-                return null;
+                return new List<string>();
             }
             var dates = goalRepository.GetAvailableYearsMonths(accountId);
             List<string> result = new List<string>();
@@ -73,9 +73,9 @@ namespace BudgetApp.Controllers
         [Route("availableyears")]
         public List<string> GetAvailableYears(int accountId)
         {
-            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
-                return null;
+                return new List<string>();
             }
             var dates = goalRepository.GetAvailableYears(accountId);
             List<string> result = new List<string>();
@@ -89,9 +89,9 @@ namespace BudgetApp.Controllers
         [HttpGet]
         public List<GoalViewModel> GetGoals(int accountId, bool annual, DateTime date)
         {
-            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id").Value.ToString(), accountId))
+            if (!accountRepository.AccountOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, accountId))
             {
-                return null;
+                return new List<GoalViewModel>();
             }
             var goals = goalRepository.GetGoalsOfAccount(accountId, annual, date);
             var result = new List<GoalViewModel>();
