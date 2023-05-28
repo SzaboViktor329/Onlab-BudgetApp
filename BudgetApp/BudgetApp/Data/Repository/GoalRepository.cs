@@ -59,6 +59,11 @@ namespace BudgetApp.Data.Repository
             && q.GoalDate.Year == date.Year && q.GoalDate.Month == date.Month).ToList();
         }
 
+        public bool GoalOfUser(string userId, int goalId)
+        {
+            return context.Goals.Any(q => q.Account.User.Id == userId && q.GoalId == goalId);
+        }
+
         public void Update(Goal goal)
         {
             context.Goals.Update(goal);

@@ -70,7 +70,12 @@ export class GoalsComponent {
       console.log(response);
     });
   }
+  
   removeGoal(goal: GoalViewModel){
-    console.log("remove " + goal.goalId);
+    this.goalService.apiGoalDelete(goal.goalId).subscribe(response=>{
+      this.getAvailableYears();
+      this.getAvailableYearsMonths();
+      console.log(response);
+    });
   }
 }

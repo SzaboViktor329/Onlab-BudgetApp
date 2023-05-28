@@ -110,5 +110,21 @@ namespace BudgetApp.Controllers
 
             return result;
         }
+
+        [HttpDelete]
+        public IActionResult removeGoal(int goalId)
+        {
+            var goal = goalRepository.GetById(goalId);
+            if(goal == null)
+            {
+                return BadRequest("Goal not exist");
+            }
+            if (!goalRepository.GoalOfUser(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty, goalId))
+            {
+                return BadRequest("Not the user's goal");
+            }
+            goalRepository.Delete(goal);
+            return Ok();
+        }
     }
 }
