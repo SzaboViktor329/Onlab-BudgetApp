@@ -70,4 +70,7 @@ export class GoalsComponent {
       console.log(response);
     });
   }
+  removeGoal(goal: GoalViewModel){
+    console.log("remove " + goal.goalId);
+  }
 }
