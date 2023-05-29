@@ -45,7 +45,7 @@ namespace BudgetApp.Data.Repository
         public List<Transaction> GetUpcomingTransactions(int accountId)
         {
             return context.Transactions.Where(q => q.Account.AccountID == accountId && q.TransactionStatus.Equals("upcoming"))
-                .OrderByDescending(q => q.PostedDate).ThenByDescending(q => q.TransactionId).ToList();
+                .OrderByDescending(q => q.UpcomingDate).ThenByDescending(q => q.TransactionId).ToList();
         }
 
         public List<Transaction> GetBookedTransactions(int accountId, int page)
@@ -188,6 +188,25 @@ namespace BudgetApp.Data.Repository
         public bool TransactionOfUser(string userId, int transactiontId)
         {
             return context.Transactions.Any(q=> q.Account.User.Id == userId && q.TransactionId == transactiontId);
+        }
+
+        public void UpdateUpcomingTransactions()
+        {
+            var upcomingTransactions = context.Transactions.Where(q => q.TransactionStatus.Equals("upcoming") 
+            && q.UpcomingDate.Year<=DateTime.Today.Year && q.UpcomingDate.Month<=DateTime.Today.Month 
+            && q.UpcomingDate.Day<=DateTime.Today.Day).ToList();
+            if(upcomingTransactions.Count == 0 ) {
+                return;
+            }
+            foreach (var transaction in upcomingTransactions)
+            {
+                transaction.PostedDate = DateTime.Today;
+                transaction.UpcomingDate = DateTime.Today.AddMonths(1);
+                Update(transaction);
+                transaction.TransactionId = 0;
+                transaction.TransactionStatus = "booked";
+                Add(transaction);
+            } 
         }
     }
 }

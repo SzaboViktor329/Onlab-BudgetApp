@@ -13,6 +13,7 @@ namespace BudgetApp.Data.Repository.RepoServices
         List<Transaction> GetUpcomingTransactions(int accountId);
         List<Transaction> GetBookedTransactions(int accountId, int page);
         List<Transaction> GetTransactionsInMonth(int accountId, string transactionStatus, DateTime date);
+        void UpdateUpcomingTransactions();
         bool TransactionOfUser(string userId, int transactiontId);
         int GetPages(int accountId);
         double getBalance(int accountId);

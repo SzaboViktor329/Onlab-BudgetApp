@@ -2,6 +2,7 @@ using BudgetApp.Data;
 using BudgetApp.Data.Repository;
 using BudgetApp.Data.Repository.RepoServices;
 using BudgetApp.Models;
+using BudgetApp.Services;
 using BudgetApp.Services.TokenGenerator;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -59,6 +60,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHostedService<TransactionUpdaterService>();
 
 var app = builder.Build();
 
