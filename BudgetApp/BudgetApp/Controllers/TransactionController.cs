@@ -1,9 +1,7 @@
 ﻿using BudgetApp.Data.Repository.RepoServices;
 using BudgetApp.Models;
 using BudgetApp.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Principal;
 
 namespace BudgetApp.Controllers
 {

@@ -62,7 +62,6 @@ namespace BudgetApp.Controllers
                 LastName = model.LastName
             };
 
-            //Create User
             var result = await _userManager.CreateAsync(userToCreate, model.Password);
 
             if (result.Succeeded)
@@ -72,13 +71,5 @@ namespace BudgetApp.Controllers
 
             return BadRequest(result);
         }
-
-        /*
-        [HttpPost("confirmemail")]
-        public IActionResult ConfirmEmail(ConfirmEmailViewModel model)
-        {
-            return Ok();
-        }
-        */
     }
 }

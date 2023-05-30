@@ -24,16 +24,6 @@ namespace BudgetApp.Services.TokenGenerator
              	new Claim(JwtRegisteredClaimNames.Email , user.Email),
                 new Claim("user_id", user.Id)
             };
-            
-            /*
-            claims.Add(new Claim(JwtRegisteredClaimNames.GivenName, user.UserName));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
-
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
-            */
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Token:Key"]));
 
