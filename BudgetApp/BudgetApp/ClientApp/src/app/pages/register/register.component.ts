@@ -52,4 +52,10 @@ export class RegisterComponent {
     onFormInteraction() {
         this.registerFailed = false;
     }
+
+    handleConfirmPasswordChange(){
+        if(this.registerForm.controls.password.value !== this.registerForm.controls.confirmPassword.value){
+            this.registerForm.controls.confirmPassword.setErrors({ 'invalid': true });
+        }
+    }
 }
