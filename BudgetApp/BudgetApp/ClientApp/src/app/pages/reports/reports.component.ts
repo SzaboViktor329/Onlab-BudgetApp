@@ -108,12 +108,12 @@ export class ReportsComponent implements OnInit {
     label: 'My First Dataset',
     data: this.amounts,
     backgroundColor: [
+      'blue',
       'red',
-      'pink',
       'green',
-			'yellow',
-      'orange',
-      'blue',			
+      'yellow',
+      'pink',
+      'orange',	
     ],
     hoverOffset: 4
   }],
