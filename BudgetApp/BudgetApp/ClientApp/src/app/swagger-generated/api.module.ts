@@ -9,7 +9,6 @@ import { IdentityService } from './api/identity.service';
 import { ReportService } from './api/report.service';
 import { TransactionService } from './api/transaction.service';
 import { UserService } from './api/user.service';
-import { WeatherForecastService } from './api/weatherForecast.service';
 
 @NgModule({
   imports:      [],
@@ -21,8 +20,7 @@ import { WeatherForecastService } from './api/weatherForecast.service';
     IdentityService,
     ReportService,
     TransactionService,
-    UserService,
-    WeatherForecastService ]
+    UserService ]
 })
 export class ApiModule {
     public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders<ApiModule> {

@@ -6,4 +6,3 @@ export * from './registerModel';
 export * from './reportModel';
 export * from './transactionViewModel';
 export * from './userViewModel';
-export * from './weatherForecast';
