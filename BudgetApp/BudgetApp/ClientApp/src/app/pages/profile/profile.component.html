@@ -1,7 +1,8 @@
 <h1 class="text-center mb-5">Wellcome back {{userViewModel.userName}}</h1>
 <div class="row">
     <div class="col-md-6">
-        <div class="mx-auto mb-4 pb-4 pt-4 rounded" name="userDetails" style="background-color: rgb(23, 148, 210,0.4); padding-left: 50px; padding-right: 50px;">
+        <div class="mx-auto mb-4 pb-4 pt-4 rounded" name="userDetails"
+            style="background-color: rgb(23, 148, 210,0.4); padding-left: 50px; padding-right: 50px;">
             <div class="row">
                 <p class="my-2 py-1 fs-3 fw-bold col-auto">First Name:</p>
                 <p class="my-2 py-1 fs-3 col text-end">{{userViewModel.firstName}}</p>
@@ -21,21 +22,25 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="rounded mx-auto pb-4 pt-4" name="userAccounts" style="background-color: rgba(174, 174, 174, 0.916); width: fit-content; height: fit-content; padding-left: 100px; padding-right: 100px;">
+        <div class="rounded mx-auto pb-4 pt-4" name="userAccounts"
+            style="background-color: rgba(174, 174, 174, 0.916); width: fit-content; height: fit-content; padding-left: 100px; padding-right: 100px;">
             <h2 class="text-center my-2 fs-3">Selected account</h2>
             <div *ngIf="accounts.length==0" class="row justify-content-center">
                 <p class="fs-5 text-center">There aren't accounts added yet.<br>Please add a new account.</p>
             </div>
-            <select *ngIf="accounts.length!=0" class="form-select my-3" aria-label="Default select example" id="selectAccount" (change)="selectChange()" style="background-color: rgba(210, 210, 210, 0.897);">
+            <select *ngIf="accounts.length!=0" class="form-select my-3" aria-label="Default select example"
+                id="selectAccount" (change)="selectChange()" style="background-color: rgba(210, 210, 210, 0.897);">
                 <!--<option selected>Open this select menu</option>-->
-                <option *ngFor="let account of accounts" [value]="account">{{account.accountNumber}} {{account.accountName}}</option>
+                <option *ngFor="let account of accounts" [value]="account">{{account.accountNumber}}
+                    {{account.accountName}}</option>
             </select>
             <div class="container d-flex align-items-center justify-content-center">
-                <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#addAccountModal">Add new account</button>
+                <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal"
+                    data-bs-target="#addAccountModal">Add new account</button>
             </div>
         </div>
     </div>
-    
+
 </div>
 
 <app-addaccount-modal (addAccount)="addAccount($event)"></app-addaccount-modal>

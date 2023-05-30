@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IdentityService, RegisterModel } from 'src/app/swagger-generated';
 
@@ -42,7 +42,6 @@ export class RegisterComponent {
             lastName: this.registerForm.controls.lastName.value
         }
         this.identityService.identityRegisterPost(this.registerFormApi).subscribe(response => {
-            console.log(response.result);
             this.router.navigate(['/login']);
         }, error => {
             this.registerFailed = true;
@@ -53,8 +52,8 @@ export class RegisterComponent {
         this.registerFailed = false;
     }
 
-    handleConfirmPasswordChange(){
-        if(this.registerForm.controls.password.value !== this.registerForm.controls.confirmPassword.value){
+    handleConfirmPasswordChange() {
+        if (this.registerForm.controls.password.value !== this.registerForm.controls.confirmPassword.value) {
             this.registerForm.controls.confirmPassword.setErrors({ 'invalid': true });
         }
     }

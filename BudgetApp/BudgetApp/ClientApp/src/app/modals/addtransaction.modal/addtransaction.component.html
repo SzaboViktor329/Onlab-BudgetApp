@@ -15,25 +15,28 @@
             <div class="invalid-feedback">Please fill out this field.</div>
           </div>
           <div class="form-floating pb-3 w-75 mx-auto">
-            <select class="form-select" id="category" aria-label="Floating label select example" formControlName="category">
+            <select class="form-select" id="category" aria-label="Floating label select example"
+              formControlName="category">
               <option *ngFor="let category of categories">{{category}}</option>
             </select>
             <label for="category">Category</label>
           </div>
           <div class="form-check pb-3 mx-auto" style="width: fit-content;">
-            <input class="form-check-input" type="checkbox" value="" id="monthly" formControlName="monthly" (change)="handleMonthlyChange($any($event.target).checked)">
+            <input class="form-check-input" type="checkbox" value="" id="monthly" formControlName="monthly"
+              (change)="handleMonthlyChange($any($event.target).checked)">
             <label class="form-check-label" for="monthly">
               Monthly
             </label>
           </div>
           <div class="form-floating pb-3 w-75 mx-auto" style="width: fit-content;">
-            <input class="form-control" type="date" id="date" formControlName="date" [min]="minDate" 
+            <input class="form-control" type="date" id="date" formControlName="date" [min]="minDate"
               [class.is-invalid]="transactionForm.controls.date.value?.localeCompare(minDate) === -1">
             <label for="date">Date</label>
             <div class="invalid-feedback">Please give a later date.</div>
           </div>
           <div class="form-floating pb-3 w-75 mx-auto">
-            <input type="number" name="amount" required class="form-control" formControlName="amount" placeholder="Amount"
+            <input type="number" name="amount" required class="form-control" formControlName="amount"
+              placeholder="Amount"
               [class.is-invalid]="transactionForm.controls.amount.touched && transactionForm.controls.amount.invalid"
               id="floatingAmount">
             <label for="floatingAmount">Amount</label>

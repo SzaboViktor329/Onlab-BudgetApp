@@ -12,53 +12,52 @@ import { CategoryReportModel, ReportModel, ReportService } from 'src/app/swagger
 export class ReportsComponent implements OnInit {
   public chart: any;
   public accountId = this.authService.getSelectedAccountId();
-  public availableYearsMonths : Date[] = [];
-  public availableYears : Date[] = [];
-  public annualReport : ReportModel = {};
-  public monthlyReports : ReportModel[] = [];
-  public categoryReport : CategoryReportModel[] = [];
-  public categories : string[] = [];
-  public amounts : number[] = [];
-  public annual : boolean = true;
-  public pieChartHidden : boolean =true;
+  public availableYearsMonths: Date[] = [];
+  public availableYears: Date[] = [];
+  public annualReport: ReportModel = {};
+  public monthlyReports: ReportModel[] = [];
+  public categoryReport: CategoryReportModel[] = [];
+  public categories: string[] = [];
+  public amounts: number[] = [];
+  public annual: boolean = true;
+  public pieChartHidden: boolean = true;
 
-  public thousandSeparator : ThousandSeparatorPipe = new ThousandSeparatorPipe();
+  public thousandSeparator: ThousandSeparatorPipe = new ThousandSeparatorPipe();
 
-  constructor(private reportService : ReportService, public authService : AuthService){
-    reportService.apiReportAvailableyearsGet(this.accountId).subscribe(response=>{
-      for(var dateString of response){
+  constructor(private reportService: ReportService, public authService: AuthService) {
+    reportService.apiReportAvailableyearsGet(this.accountId).subscribe(response => {
+      for (var dateString of response) {
         this.availableYears.push(new Date(dateString));
       }
-      if(this.availableYears.length!=0){
-        this.pieChartHidden=false;
+      if (this.availableYears.length != 0) {
+        this.pieChartHidden = false;
       }
       this.getAnnualReport(this.availableYears[0]);
       this.getMonthlyReport(this.availableYears[0]);
       this.getCategoriesReport(this.availableYears[0]);
     });
-    reportService.apiReportAvailabledatesGet(this.accountId).subscribe(response=>{
-      for(var dateString of response){
+    reportService.apiReportAvailabledatesGet(this.accountId).subscribe(response => {
+      for (var dateString of response) {
         this.availableYearsMonths.push(new Date(dateString));
       }
     });
   }
 
-  annualReportSelectionChanged(dateString : string){
+  annualReportSelectionChanged(dateString: string) {
     this.getAnnualReport(new Date(dateString));
   }
-  
-  monthlyReportSelectionChanged(dateString : string){
+
+  monthlyReportSelectionChanged(dateString: string) {
     this.getMonthlyReport(new Date(dateString));
   }
 
-  categoryReportSelectionChanged(dateString : string){
+  categoryReportSelectionChanged(dateString: string) {
     this.getCategoriesReport(new Date(dateString));
   }
-  
-  setAnnual(annual : boolean){
-    this.annual=annual;
+
+  setAnnual(annual: boolean) {
+    this.annual = annual;
     this.getCategoriesReport(this.availableYearsMonths[0]);
-    console.log(this.annual);
   }
 
 
@@ -66,57 +65,54 @@ export class ReportsComponent implements OnInit {
     this.createChart();
   }
 
-  getAnnualReport(date: Date){
-    this.reportService.apiReportAnnualGet(this.accountId,date).subscribe(response=>{
-      this.annualReport=response;
-      console.log(this.annualReport);
+  getAnnualReport(date: Date) {
+    this.reportService.apiReportAnnualGet(this.accountId, date).subscribe(response => {
+      this.annualReport = response;
     })
   }
 
-  getMonthlyReport(date: Date){
-    this.reportService.apiReportMonthlyGet(this.accountId,date).subscribe(response=>{
-      this.monthlyReports=response;
-      console.log(this.monthlyReports);
+  getMonthlyReport(date: Date) {
+    this.reportService.apiReportMonthlyGet(this.accountId, date).subscribe(response => {
+      this.monthlyReports = response;
     })
   }
 
-  getCategoriesReport(date : Date){
-    this.reportService.apiReportCategoriesreportGet(this.accountId,this.annual,date).subscribe(response=>{
-      this.categoryReport=response;
+  getCategoriesReport(date: Date) {
+    this.reportService.apiReportCategoriesreportGet(this.accountId, this.annual, date).subscribe(response => {
+      this.categoryReport = response;
       this.initPieChartData();
       this.chart.update();
-      console.log(this.categoryReport);
     })
   }
 
-  initPieChartData(){
-    this.amounts.length=0;
-    this.categories.length=0;
-    for(var i =0;i<this.categoryReport.length;i++){
+  initPieChartData() {
+    this.amounts.length = 0;
+    this.categories.length = 0;
+    for (var i = 0; i < this.categoryReport.length; i++) {
       this.categories.push(this.categoryReport[i].category as string);
       this.amounts.push(this.categoryReport[i].amount as number);
     }
   }
 
-  createChart(){
+  createChart() {
     this.chart = new Chart("MyChart", {
       type: 'pie', //this denotes tha type of chart
 
       data: {// values on X-Axis
         labels: this.categories,
-	       datasets: [{
-    label: 'My First Dataset',
-    data: this.amounts,
-    backgroundColor: [
-      'blue',
-      'red',
-      'green',
-      'yellow',
-      'pink',
-      'orange',	
-    ],
-    hoverOffset: 4
-  }],
+        datasets: [{
+          label: 'My First Dataset',
+          data: this.amounts,
+          backgroundColor: [
+            'blue',
+            'red',
+            'green',
+            'yellow',
+            'pink',
+            'orange',
+          ],
+          hoverOffset: 4
+        }],
       },
       options: {
         responsive: true,

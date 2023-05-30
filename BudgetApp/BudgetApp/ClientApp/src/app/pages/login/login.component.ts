@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
+import { FormControl, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
 import { IdentityService, LoginModel } from "src/app/swagger-generated";
@@ -32,7 +32,6 @@ export class LoginComponent {
     this.identityService.identityLoginPost(this.loginFormApi).subscribe(response => {
       this.authService.login(response.token);
       this.authService.setUserId();
-      console.log(response.token);
       this.router.navigate(['/profile']);
     }, error => {
       this.loginFailed = true;

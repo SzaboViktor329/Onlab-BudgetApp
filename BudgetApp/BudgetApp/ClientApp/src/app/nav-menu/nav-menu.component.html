@@ -1,70 +1,41 @@
 <header class="sticky-top">
-  <nav
-    class="navbar navbar-expand-md navbar-toggleable-md navbar-dark border-bottom box-shadow mb-3" style="background-color: #1794d2;"
-  >
+  <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-dark border-bottom box-shadow mb-3"
+    style="background-color: #1794d2;">
     <div class="container">
       <a class="navbar-brand text-light fs-2" [routerLink]="['/']">BudgetApp</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+        aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div
-        class="navbar-collapse collapse d-md-inline-flex"
-        [ngClass]="{ show: isExpanded }"
-      >
+      <div class="navbar-collapse collapse d-md-inline-flex" [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
-          <li
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
+          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-light fs-5" [routerLink]="['/']">Home</a>
           </li>
           <li class="nav-item" *ngIf="authService.isLoggedIn" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-light fs-5" [routerLink]="['/mybudget']"
-              >My Budget</a
-            >
+            <a class="nav-link text-light fs-5" [routerLink]="['/mybudget']">My Budget</a>
           </li>
           <li class="nav-item" *ngIf="authService.isLoggedIn" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-light fs-5" [routerLink]="['/reports']"
-              >Reports</a
-            >
+            <a class="nav-link text-light fs-5" [routerLink]="['/reports']">Reports</a>
           </li>
           <li class="nav-item" *ngIf="authService.isLoggedIn" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-light fs-5" [routerLink]="['/goals']"
-              >Goals</a
-            >
+            <a class="nav-link text-light fs-5" [routerLink]="['/goals']">Goals</a>
           </li>
         </ul>
         <ul class="nav navbar-nav ms-auto">
           <li class="nav-item" *ngIf="!authService.isLoggedIn" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-light fs-5" [routerLink]="['/register']"
-              >Register</a
-            >
+            <a class="nav-link text-light fs-5" [routerLink]="['/register']">Register</a>
           </li>
           <li class="nav-item" *ngIf="!authService.isLoggedIn" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-light fs-5" [routerLink]="['/login']"
-              >Login</a
-            >
+            <a class="nav-link text-light fs-5" [routerLink]="['/login']">Login</a>
           </li>
           <li class="nav-item" *ngIf="authService.isLoggedIn" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-light fs-5" [routerLink]="['/profile']"
-              >Profile</a
-            >
+            <a class="nav-link text-light fs-5" [routerLink]="['/profile']">Profile</a>
           </li>
           <li class="nav-item" *ngIf="authService.isLoggedIn" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-light fs-5" (click)="logout()" [routerLink]="['/']"
-              >Logout</a
-            >
+            <a class="nav-link text-light fs-5" (click)="logout()" [routerLink]="['/']">Logout</a>
           </li>
-      </ul>
+        </ul>
       </div>
     </div>
   </nav>

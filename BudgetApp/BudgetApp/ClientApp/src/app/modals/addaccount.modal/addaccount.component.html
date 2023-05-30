@@ -8,14 +8,16 @@
       <div class="modal-body">
         <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
           <div class="form-floating pb-3 w-75 mx-auto">
-            <input type="text" name="accountName" required class="form-control" formControlName="accountName" placeholder="Name"
+            <input type="text" name="accountName" required class="form-control" formControlName="accountName"
+              placeholder="Name"
               [class.is-invalid]="accountForm.controls.accountName.touched && accountForm.controls.accountName.invalid"
               id="floatingaccountName">
             <label for="floatingaccountName">Account name</label>
             <div class="invalid-feedback">Please fill out this field.</div>
           </div>
           <div class="form-floating pb-3 w-75 mx-auto">
-            <input type="text" name="accountNumber" required class="form-control" formControlName="accountNumber" placeholder="Name"
+            <input type="text" name="accountNumber" required class="form-control" formControlName="accountNumber"
+              placeholder="Name"
               [class.is-invalid]="accountForm.controls.accountNumber.touched && accountForm.controls.accountNumber.invalid"
               id="floatingaccountNumber">
             <label for="floatingaccountNumber">Account number</label>

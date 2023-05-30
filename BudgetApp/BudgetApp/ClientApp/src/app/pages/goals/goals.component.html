@@ -1,46 +1,60 @@
 <div *ngIf="accountId==-1" class="row justify-content-center" style="margin-top: 30px;">
     <div class="fs-3 text-center">There aren't any account added yet.</div>
-    <div class="fs-5 text-center">Please add new account in the <a [routerLink]="['/profile']"
-        >Profile</a> page.</div>
+    <div class="fs-5 text-center">Please add new account in the <a [routerLink]="['/profile']">Profile</a> page.</div>
 </div>
 
 <div *ngIf="accountId!=-1">
     <div class="container d-flex justify-content-center mt-5">
-        <button type="button" class="btn btn-primary fs-4" data-bs-toggle="modal" data-bs-target="#addGoalModal">Add new goal</button>
+        <button type="button" class="btn btn-primary fs-4" data-bs-toggle="modal" data-bs-target="#addGoalModal">Add new
+            goal</button>
     </div>
-    
     <div class="my-3" name="goalsPane">
         <div class="mb-3" name="annualPane">
             <h1 class="fs-3 ms-3">Annual goals</h1>
             <div *ngIf="availableYears.length==0" class="row justify-content-center">
                 <div class="col-md-6 fs-5 text-center">There aren't any annual goals added yet.</div>
             </div>
-            <select *ngIf="availableYears.length!=0" #t (change)="annualGoalSelectionChanged(t.value)" class="form-select my-3 ms-5 fs-5" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.775); width: fit-content;">
-                <option *ngFor="let availableYear of availableYears" [value]="availableYear">{{availableYear.getFullYear()}}</option>
+            <select *ngIf="availableYears.length!=0" #t (change)="annualGoalSelectionChanged(t.value)"
+                class="form-select my-3 ms-5 fs-5" aria-label="Default select example"
+                style="background-color: rgba(232, 232, 232, 0.775); width: fit-content;">
+                <option *ngFor="let availableYear of availableYears" [value]="availableYear">
+                    {{availableYear.getFullYear()}}</option>
             </select>
             <div>
-                <div *ngFor="let annualGoal of annualGoals" class="overflow-auto m-3 p-2 w-75 mx-auto" style="background-color: rgb(23, 148, 210,0.7); border-radius: 20px;">
+                <div *ngFor="let annualGoal of annualGoals" class="overflow-auto m-3 p-2 w-75 mx-auto"
+                    style="background-color: rgb(23, 148, 210,0.7); border-radius: 20px;">
                     <div class="d-flex">
-                        <div class="d-flex align-items-center py-2 ps-3 pe-3 me-2" style="background-color:rgb(174, 174, 174,0.7);  border-radius: 10px 0px 0px 0px;">
+                        <div class="d-flex align-items-center py-2 ps-3 pe-3 me-2"
+                            style="background-color:rgb(174, 174, 174,0.7);  border-radius: 10px 0px 0px 0px;">
                             <p class="m-0 fw-bold">{{annualGoal.category}}</p>
                         </div>
-                        <div class="py-2 ps-3 pe-3 text-center fw-bold" style="background-color:rgb(174, 174, 174,0.7); border-radius: 0px 0px 10px 0px;">Goal: <br>{{thousandSeparator.transform(annualGoal.targetAmount ?? 0)}} Ft</div>
+                        <div class="py-2 ps-3 pe-3 text-center fw-bold"
+                            style="background-color:rgb(174, 174, 174,0.7); border-radius: 0px 0px 10px 0px;">Goal:
+                            <br>{{thousandSeparator.transform(annualGoal.targetAmount ?? 0)}} Ft
+                        </div>
                         <button class="btn btn-danger ms-auto mt-2 me-2" (click)="removeGoal(annualGoal)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-trash" viewBox="0 0 16 16">
+                                <path
+                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                <path
+                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                             </svg>
                         </button>
                     </div>
                     <div class="p-3">
                         <div class="progress position-relative">
-                            <div *ngIf="annualGoal.actualAmount && annualGoal.targetAmount" class="progress-bar" role="progressbar" [style.background-color]="annualGoal.category === 'Income' ? 'green' : 'red'"
-                            [style.width]="100*annualGoal.actualAmount/annualGoal.targetAmount + '%'"></div>
-                            <small class="justify-content-center d-flex position-absolute w-100 fw-bold">{{thousandSeparator.transform(annualGoal.actualAmount ?? 0)}} Ft</small>
+                            <div *ngIf="annualGoal.actualAmount && annualGoal.targetAmount" class="progress-bar"
+                                role="progressbar"
+                                [style.background-color]="annualGoal.category === 'Income' ? 'green' : 'red'"
+                                [style.width]="100*annualGoal.actualAmount/annualGoal.targetAmount + '%'"></div>
+                            <small
+                                class="justify-content-center d-flex position-absolute w-100 fw-bold">{{thousandSeparator.transform(annualGoal.actualAmount
+                                ?? 0)}} Ft</small>
                         </div>
                     </div>
                 </div>
-            </div>      
+            </div>
         </div>
         <div name="monthlyPane">
             <h1 class="fs-3 ms-3">Monthly goals</h1>
@@ -48,36 +62,51 @@
                 <div class="col-md-6 fs-5 text-center">There aren't any monthly goals added yet.</div>
             </div>
             <div class="d-flex">
-                <select *ngIf="availableYearsMonths.length!=0" #v (change)="monthlyGoalSelectionChanged(v.value)" class="form-select my-3 ms-5 fs-5" aria-label="Default select example" style="background-color: rgba(232, 232, 232, 0.67); width: fit-content;">
-                    <option *ngFor="let availableYearsMonth of availableYearsMonths" [value]="availableYearsMonth">{{availableYearsMonth.getFullYear()}} {{availableYearsMonth.toLocaleString('en-us', { month: 'long' })}}</option>
+                <select *ngIf="availableYearsMonths.length!=0" #v (change)="monthlyGoalSelectionChanged(v.value)"
+                    class="form-select my-3 ms-5 fs-5" aria-label="Default select example"
+                    style="background-color: rgba(232, 232, 232, 0.67); width: fit-content;">
+                    <option *ngFor="let availableYearsMonth of availableYearsMonths" [value]="availableYearsMonth">
+                        {{availableYearsMonth.getFullYear()}} {{availableYearsMonth.toLocaleString('en-us', { month:
+                        'long' })}}</option>
                 </select>
             </div>
             <div>
-                <div *ngFor="let monthlyGoal of monthlyGoals" class="overflow-auto m-3 p-2 w-75 mx-auto" style="background-color: rgb(23, 148, 210,0.7); border-radius: 20px;">
+                <div *ngFor="let monthlyGoal of monthlyGoals" class="overflow-auto m-3 p-2 w-75 mx-auto"
+                    style="background-color: rgb(23, 148, 210,0.7); border-radius: 20px;">
                     <div class="d-flex">
-                        <div class="d-flex align-items-center py-2 ps-3 pe-3 me-2" style="background-color:rgb(174, 174, 174,0.7);  border-radius: 10px 0px 0px 0px;">
+                        <div class="d-flex align-items-center py-2 ps-3 pe-3 me-2"
+                            style="background-color:rgb(174, 174, 174,0.7);  border-radius: 10px 0px 0px 0px;">
                             <p class="m-0 fw-bold">{{monthlyGoal.category}}</p>
                         </div>
-                        <div class="py-2 ps-3 pe-3 text-center fw-bold" style="background-color:rgb(174, 174, 174,0.7); border-radius: 0px 0px 10px 0px;">Goal: <br>{{thousandSeparator.transform(monthlyGoal.targetAmount ?? 0)}} Ft</div>
+                        <div class="py-2 ps-3 pe-3 text-center fw-bold"
+                            style="background-color:rgb(174, 174, 174,0.7); border-radius: 0px 0px 10px 0px;">Goal:
+                            <br>{{thousandSeparator.transform(monthlyGoal.targetAmount ?? 0)}} Ft
+                        </div>
                         <button class="btn btn-danger ms-auto mt-2 me-2" (click)="removeGoal(monthlyGoal)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-trash" viewBox="0 0 16 16">
+                                <path
+                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                <path
+                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                             </svg>
                         </button>
                     </div>
                     <div class="p-3">
                         <div class="progress position-relative">
-                            <div *ngIf="monthlyGoal.actualAmount && monthlyGoal.targetAmount" class="progress-bar" role="progressbar" [style.background-color]="monthlyGoal.category === 'Income' ? 'green' : 'red'"
-                            [style.width]="100*monthlyGoal.actualAmount/monthlyGoal.targetAmount + '%'"></div>
-                            <small class="justify-content-center d-flex position-absolute w-100 fw-bold">{{thousandSeparator.transform(monthlyGoal.actualAmount ?? 0)}} Ft</small>
+                            <div *ngIf="monthlyGoal.actualAmount && monthlyGoal.targetAmount" class="progress-bar"
+                                role="progressbar"
+                                [style.background-color]="monthlyGoal.category === 'Income' ? 'green' : 'red'"
+                                [style.width]="100*monthlyGoal.actualAmount/monthlyGoal.targetAmount + '%'"></div>
+                            <small
+                                class="justify-content-center d-flex position-absolute w-100 fw-bold">{{thousandSeparator.transform(monthlyGoal.actualAmount
+                                ?? 0)}} Ft</small>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
-
 
 <app-addgoal-modal (goalAdded)="goalAdded($event)"></app-addgoal-modal>

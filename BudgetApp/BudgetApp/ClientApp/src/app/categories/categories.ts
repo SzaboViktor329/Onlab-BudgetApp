@@ -1,8 +1,8 @@
-export enum Categories{
+export enum Categories {
     Income,
     Shopping,
     Travel,
     Fun,
     Bills,
-    Other 
+    Other
 }

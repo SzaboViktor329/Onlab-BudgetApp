@@ -1,6 +1,5 @@
-import { formatDate } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Categories } from 'src/app/categories/categories';
 import { TransactionViewModel } from 'src/app/swagger-generated';
 
@@ -11,13 +10,12 @@ declare var bootstrap: any;
   templateUrl: './addtransaction.component.html'
 })
 export class AddTransactionModal {
-  public transaction : TransactionViewModel = {};
+  public transaction: TransactionViewModel = {};
   @Output() addTransaction = new EventEmitter<TransactionViewModel>();
 
   categories = Object.values(Categories).filter(x => typeof x === "string");
-  dateToday=new Date().toISOString().split('T')[0];
+  dateToday = new Date().toISOString().split('T')[0];
   minDate: string = '';
-
 
   public transactionForm = new FormGroup({
     name: new FormControl(),
@@ -26,9 +24,9 @@ export class AddTransactionModal {
     date: new FormControl(this.dateToday),
     amount: new FormControl()
   });
-  
+
   onSubmit() {
-    this.transaction={
+    this.transaction = {
       transactionName: this.transactionForm.value.name,
       category: this.transactionForm.value.category as string,
       transactionStatus: this.transactionForm.value.monthly ? "upcoming" : "booked",
@@ -37,11 +35,10 @@ export class AddTransactionModal {
       amount: this.transactionForm.value.amount
     }
     this.addTransaction.emit(this.transaction);
-    console.log(this.transaction);
     this.closeModal();
   }
 
-  closeModal(){
+  closeModal() {
     bootstrap.Modal.getInstance(document.getElementById('addTransactionModal')).hide();
     this.transactionForm.reset();
     this.transactionForm.patchValue({
@@ -49,15 +46,13 @@ export class AddTransactionModal {
       monthly: false,
       date: this.dateToday
     });
-    this.minDate='';
+    this.minDate = '';
   }
 
   handleMonthlyChange(checked: boolean) {
     this.minDate = checked ? this.dateToday : '';
-    if((checked)&&(this.transactionForm.value.date as string < this.minDate)){
+    if ((checked) && (this.transactionForm.value.date as string < this.minDate)) {
       this.transactionForm.controls.date.setErrors({ 'invalid': true });
     }
   }
-
-  
 }

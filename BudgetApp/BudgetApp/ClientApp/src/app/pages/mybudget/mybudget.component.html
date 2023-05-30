@@ -39,7 +39,8 @@
     </div>
 
     <div class="container d-flex justify-content-center mt-3">
-        <button type="button" class="btn btn-primary fs-4" data-bs-toggle="modal" data-bs-target="#addTransactionModal">Add
+        <button type="button" class="btn btn-primary fs-4" data-bs-toggle="modal"
+            data-bs-target="#addTransactionModal">Add
             income/expense</button>
     </div>
 
@@ -59,7 +60,8 @@
                         <p class="text-center pb-2 pt-2 m-0">{{upcomingTransaction.category}}</p>
                     </div>
                     <div class="col">
-                        <p class="text-center pb-2 pt-2 m-0">{{upcomingTransaction.upcomingDate | date: 'yyyy-MM-dd'}}</p>
+                        <p class="text-center pb-2 pt-2 m-0">{{upcomingTransaction.upcomingDate | date: 'yyyy-MM-dd'}}
+                        </p>
                     </div>
                     <div class="col-4">
                         <p class="text-center pb-2 pt-2 m-0 rounded fw-bold"
@@ -70,9 +72,12 @@
                     <div class="p-0" style="width: fit-content;">
                         <button type="button" class="btn btn-danger pb-2 pt-2 m-0" [value]="upcomingTransaction"
                             (click)="removeTransaction(upcomingTransaction)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-trash" viewBox="0 0 16 16">
+                                <path
+                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                <path
+                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                             </svg>
                         </button>
                     </div>
@@ -86,13 +91,14 @@
             </div>
             <div class="row justify-content-end mb-3">
                 <div class="col-md-3" style="min-width: 100px;">
-                  <select class="form-select" (change)="getBookedTransactions($any($event.target).value)" style="background-color: rgba(206, 206, 206, 0.7); min-width: 200px;">
-                    <option value="thisMonth">This month</option>
-                    <option value="lastMonth">Last month</option>
-                    <option value="all">All transaction</option>
-                  </select>
+                    <select class="form-select" (change)="getBookedTransactions($any($event.target).value)"
+                        style="background-color: rgba(206, 206, 206, 0.7); min-width: 200px;">
+                        <option value="thisMonth">This month</option>
+                        <option value="lastMonth">Last month</option>
+                        <option value="all">All transaction</option>
+                    </select>
                 </div>
-              </div>
+            </div>
             <div>
                 <div *ngFor="let bookedTransaction of bookedTransactions" class="row mx-auto p-2 mt-2 mb-2"
                     style="background-color:rgb(174, 174, 174,0.7); border-radius: 20px; width: 90%;">
@@ -114,9 +120,12 @@
                     <div class="p-0" style="width: fit-content;">
                         <button type="button" class="btn btn-danger pb-2 pt-2 m-0" [value]="bookedTransaction"
                             (click)="removeTransaction(bookedTransaction)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-trash" viewBox="0 0 16 16">
+                                <path
+                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                <path
+                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
                             </svg>
                         </button>
                     </div>
@@ -124,7 +133,8 @@
             </div>
             <nav *ngIf="allTransactions" aria-label="Page navigation example">
                 <ul class="pagination justify-content-center mt-3">
-                    <li class="page-item"><a class="page-link" style="cursor: pointer;" (click)="getFirstPage()">First</a></li>
+                    <li class="page-item"><a class="page-link" style="cursor: pointer;"
+                            (click)="getFirstPage()">First</a></li>
                     <li class="page-item"><a class="page-link" style="cursor: pointer;" (click)="previousPage()">
                             <span aria-hidden="true">&laquo;</span></a>
                     </li>
@@ -132,7 +142,8 @@
                     <li class="page-item"><a class="page-link" style="cursor: pointer;" (click)="nextPage()">
                             <span aria-hidden="true">&raquo;</span></a>
                     </li>
-                    <li class="page-item"><a class="page-link" style="cursor: pointer;" (click)="getLastPage()">Last</a></li>
+                    <li class="page-item"><a class="page-link" style="cursor: pointer;" (click)="getLastPage()">Last</a>
+                    </li>
                 </ul>
             </nav>
         </div>

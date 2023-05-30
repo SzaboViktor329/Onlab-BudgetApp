@@ -21,23 +21,21 @@ export class MyBudgetComponent {
   public currentPage: number = 1;
   public totalPages: number = 1;
   public allTransactions: boolean = false;
-  private transactionGetType : string = "thisMonth";
+  private transactionGetType: string = "thisMonth";
 
   constructor(private transactionService: TransactionService, public authService: AuthService) {
-    console.log(this.currentPage);
     this.getBalance();
     this.getUpcomingSumInNextMonth();
     this.getAllTransactions();
   }
 
-  getTotalPages(){
-    this.transactionService.apiTransactionGetpagesGet(this.accountId).subscribe(response=>{
-      this.totalPages=response;
-      if(this.currentPage>this.totalPages){
-        this.currentPage=this.totalPages;
+  getTotalPages() {
+    this.transactionService.apiTransactionGetpagesGet(this.accountId).subscribe(response => {
+      this.totalPages = response;
+      if (this.currentPage > this.totalPages) {
+        this.currentPage = this.totalPages;
       }
       this.getBookedTransactions(this.transactionGetType);
-      console.log(this.totalPages);
     });
   }
 
@@ -46,37 +44,36 @@ export class MyBudgetComponent {
       this.getAllTransactions();
       this.getBalance();
       this.getUpcomingSumInNextMonth();
-      console.log(response);
     });
   }
 
   getAllTransactions() {
     this.getTotalPages();
     this.getUpcomingTransactions();
-    
+
   }
 
   getUpcomingTransactions() {
-    this.transactionService.apiTransactionUpcomingtransactionsGet(this.accountId).subscribe(response=>{
-      this.upcomingTransactions=response;
+    this.transactionService.apiTransactionUpcomingtransactionsGet(this.accountId).subscribe(response => {
+      this.upcomingTransactions = response;
     });
   }
 
   getAllBookedTransactions() {
-    this.transactionService.apiTransactionBookedtransactionsGet(this.accountId,this.currentPage).subscribe(response => {
+    this.transactionService.apiTransactionBookedtransactionsGet(this.accountId, this.currentPage).subscribe(response => {
       this.bookedTransactions = response;
     });
   }
 
   getThisMonthsTransactions() {
-    this.transactionService.apiTransactionTransactionsinmonthGet(this.accountId,"booked", new Date()).subscribe(response => {
+    this.transactionService.apiTransactionTransactionsinmonthGet(this.accountId, "booked", new Date()).subscribe(response => {
       this.bookedTransactions = response;
     });
   }
   getLastMonthsTransactions() {
     let date = new Date();
-    date.setMonth(date.getMonth()-1);
-    this.transactionService.apiTransactionTransactionsinmonthGet(this.accountId,"booked", date).subscribe(response => {
+    date.setMonth(date.getMonth() - 1);
+    this.transactionService.apiTransactionTransactionsinmonthGet(this.accountId, "booked", date).subscribe(response => {
       this.bookedTransactions = response;
     });
   }
@@ -86,7 +83,6 @@ export class MyBudgetComponent {
       this.getAllTransactions();
       this.getBalance();
       this.getUpcomingSumInNextMonth();
-      console.log(response);
     });
   }
 
@@ -96,16 +92,16 @@ export class MyBudgetComponent {
     });
   }
 
-  getUpcomingSumInNextMonth(){
+  getUpcomingSumInNextMonth() {
     let date = new Date();
-    date.setMonth(date.getMonth()+1);
-    this.transactionService.apiTransactionUpcominginmonthGet(this.accountId,date).subscribe(response => {
-      this.upcoming=response;
+    date.setMonth(date.getMonth() + 1);
+    this.transactionService.apiTransactionUpcominginmonthGet(this.accountId, date).subscribe(response => {
+      this.upcoming = response;
     })
   }
 
   getBookedTransactions(type: string) {
-    this.transactionGetType=type;
+    this.transactionGetType = type;
     switch (type) {
       case "thisMonth":
         this.allTransactions = false;
@@ -142,5 +138,4 @@ export class MyBudgetComponent {
     this.currentPage = this.totalPages;
     this.getAllBookedTransactions();
   }
-
 }
