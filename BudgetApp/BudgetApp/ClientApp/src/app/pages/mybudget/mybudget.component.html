@@ -12,12 +12,12 @@
                 <div class="d-flex flex-column justify-content-center align-items-center h-100">
                     <p class="fs-3 fw-bold my-2">Account:</p>
                     <p class="p-2 fs-5 mb-2" name="accountField"
-                        style="background-color: rgba(174, 174, 174, 0.7); border-radius: 30%;">
+                        style="background-color: rgba(174, 174, 174, 0.7); border-radius: 30px;">
                         {{account.accountNumber}} {{account.accountName}}
                     </p>
                     <p class="fs-3 fw-bold mb-2">Balance:</p>
                     <p class="p-2 mb-3 fs-3 fw-bold" name="balanceField"
-                        style="background-color: rgba(174, 174, 174, 0.7); border-radius: 30%;">
+                        style="background-color: rgba(174, 174, 174, 0.7); border-radius: 30px;">
                         {{thousandSeparator.transform(balance)}} Ft
                     </p>
                 </div>
@@ -30,7 +30,7 @@
                 <div class="d-flex flex-column justify-content-center align-items-center h-100">
                     <p class="fs-3 fw-bold mb-2">Upcoming in next month:</p>
                     <p class="p-2 mb-3 fs-3 fw-bold" name="balanceField"
-                        style="background-color: rgba(23, 148, 210, 0.7); border-radius: 30%;">
+                        style="background-color: rgba(23, 148, 210, 0.7); border-radius: 30px;">
                         {{thousandSeparator.transform(upcoming)}} Ft
                     </p>
                 </div>
@@ -39,7 +39,7 @@
     </div>
 
     <div class="container d-flex justify-content-center mt-3">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTransactionModal">Add
+        <button type="button" class="btn btn-primary fs-4" data-bs-toggle="modal" data-bs-target="#addTransactionModal">Add
             income/expense</button>
     </div>
 
