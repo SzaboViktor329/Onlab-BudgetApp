@@ -63,12 +63,9 @@ export class GoalsComponent {
     })
   }
 
-  addGoal(goal: GoalViewModel) {
-    this.goalService.apiGoalPost(goal, this.accountId).subscribe(response =>{
-      this.getAvailableYears();
-      this.getAvailableYearsMonths();
-      console.log(response);
-    });
+  goalAdded(goal: GoalViewModel) {
+    this.getAvailableYears();
+    this.getAvailableYearsMonths();
   }
   
   removeGoal(goal: GoalViewModel){

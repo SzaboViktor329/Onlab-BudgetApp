@@ -6,7 +6,7 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="goalForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="goalForm" (ngSubmit)="onSubmit()" (click)="onFormInteraction()">
           <div class="form-floating pb-3 w-75 mx-auto">
             <select class="form-select" id="category" aria-label="Floating label select example" formControlName="category">
               <option *ngFor="let category of categories">{{category}}</option>
@@ -33,6 +33,7 @@
           <div class="w-50 mx-auto">
             <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="goalForm.invalid">Add</button>
           </div>
+          <div *ngIf="goalAlreadyExist" class="alert alert-danger mt-3 pb-3 w-75 mx-auto">Goal already exists.</div>
         </form>
       </div>
     </div>
