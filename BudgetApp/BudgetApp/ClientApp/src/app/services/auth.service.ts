@@ -6,7 +6,7 @@ import { AccountViewModel } from "../swagger-generated";
     providedIn: "root"
 })
 export class AuthService{
-    public isLoggedIn : boolean = true;
+    public isLoggedIn : boolean = false;
     private userId : string ="default";
     private selectedAccountId : number =-1;
     private selectedAccount : AccountViewModel ={};
