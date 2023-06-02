@@ -22,6 +22,11 @@ namespace BudgetApp.Controllers
         [HttpGet]
         public List<AccountViewModel> GetAccounts(string userId)
         {
+            userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty;
+            if(String.IsNullOrEmpty(userId))
+            {
+                return new List<AccountViewModel>();
+            }
             List<AccountViewModel> accounts = new List<AccountViewModel>();
             foreach(var account in accountRepository.GetAccountsOfUser(userId))
             {
@@ -38,6 +43,11 @@ namespace BudgetApp.Controllers
         [Route("create")]
         public async Task<IActionResult> CreateAccount(AccountViewModel accountViewModel, string userId)
         {
+            userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty;
+            if(String.IsNullOrEmpty(userId))
+            {
+                return BadRequest("User not authenticated");
+            }
             var user = await userManager.FindByIdAsync(userId);
             if (user == null)
             {
@@ -58,19 +68,6 @@ namespace BudgetApp.Controllers
                 User = user
             };
             accountRepository.Add(account);
-            return Ok();
-        }
-
-        [HttpPost]
-        [Route("remove")]
-        public IActionResult DeleteAccount(int accountId)
-        {
-            var account = accountRepository.GetById(accountId);
-            if (account == null)
-            {
-                return BadRequest("Account not exist");
-            }
-            accountRepository.Delete(account);
             return Ok();
         }
     }

@@ -19,6 +19,11 @@ namespace BudgetApp.Controllers
         [HttpGet]
         public async Task<UserViewModel?> GetUser(string id)
         {
+            id = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "user_id")?.Value.ToString() ?? string.Empty;
+            if(String.IsNullOrEmpty(id))
+            {
+                return null;
+            }
             var user = await userManager.FindByIdAsync(id);
             if (user == null)
             {
